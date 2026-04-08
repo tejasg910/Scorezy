@@ -34,7 +34,7 @@ export function QuizEditor({
     <>
       {/* Add Button */}
       <div className="mb-8">
-        <Button onClick={handleAdd} size="lg" className="bg-violet-600 hover:bg-violet-700">
+        <Button onClick={handleAdd} size="lg" className="bg-primary hover:bg-primary/90">
           + Add Question
         </Button>
         <BulkAddQuestionsDialog quizId={quizId} />
@@ -56,10 +56,10 @@ export function QuizEditor({
 
       {/* Empty State */}
       {questions.length === 0 && (
-        <Card className="border-dashed border-2 py-20">
+        <Card className="border-dashed border-2 border-border py-20 bg-background/50">
           <CardContent className="text-center">
-            <p className="text-gray-400 text-lg">No questions yet</p>
-            <p className="text-gray-500 mt-1">Add your first question to get started</p>
+            <p className="text-muted-foreground text-lg">No questions yet</p>
+            <p className="text-muted-foreground/60 mt-1">Add your first question to get started</p>
           </CardContent>
         </Card>
       )}

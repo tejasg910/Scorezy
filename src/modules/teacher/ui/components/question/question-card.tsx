@@ -47,7 +47,7 @@ export default function QuestionCard({
     <Card className="hover:shadow-md transition-all duration-200 group">
       <CardContent className="p-5 flex items-center gap-5">
         {/* Question Number */}
-        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-semibold text-gray-600 flex-shrink-0">
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-semibold text-muted-foreground flex-shrink-0">
           {index + 1}
         </div>
 
@@ -57,11 +57,11 @@ export default function QuestionCard({
             <Badge variant="outline" className="text-xs font-medium">
               {question.type === "mcq" ? "MCQ" : "True/False"}
             </Badge>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-muted-foreground">
               {question.options.length} options
             </span>
           </div>
-          <p className="text-[17px] leading-tight line-clamp-2 text-gray-800">
+          <p className="text-[17px] leading-tight line-clamp-2 text-foreground">
             {question.body}
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function QuestionCard({
             variant="ghost"
             size="sm"
             onClick={() => onEdit(question)}
-            className="text-gray-600 hover:text-violet-600"
+            className="text-muted-foreground hover:text-primary"
           >
             <Pencil className="w-4 h-4" />
           </Button>
@@ -82,7 +82,7 @@ export default function QuestionCard({
             size="sm"
             onClick={handleDelete}
             disabled={isPending}
-            className="text-gray-600 hover:text-red-600"
+            className="text-muted-foreground hover:text-red-600"
           >
             <Trash2 className="w-4 h-4" />
           </Button>

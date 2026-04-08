@@ -14,16 +14,16 @@ export default async function Quizzes({ id }: { id: string }) {
   const quizData = await getQuizzesByClassroom(id);
 console.log(quizData, "tis si quiz data")
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-background p-6 pt-32">
       <div className="max-w-6xl mx-auto space-y-6">
         
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">
+            <h1 className="text-2xl font-semibold text-foreground">
               Quizzes
             </h1>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Manage and organize your quizzes
             </p>
           </div>

@@ -63,7 +63,7 @@ export function BulkAddQuestionsDialog({ quizId }: Props) {
           </div>
 
           {/* Fixed Footer with Button */}
-          <div className="pt-6 border-t mt-4 sticky bottom-0 bg-white">
+          <div className="pt-6 border-t mt-4 sticky bottom-0">
             <Button type="submit" disabled={pending} className="w-full">
               {pending ? "Creating Questions..." : "Add Questions to Quiz"}
             </Button>

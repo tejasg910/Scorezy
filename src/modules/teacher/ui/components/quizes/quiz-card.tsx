@@ -18,10 +18,10 @@ export function QuizCard({ quiz }: { quiz: Quiz }) {
           <span
             className={`text-xs px-3 py-1 rounded-full font-medium ${
               quiz.status === "published"
-                ? "bg-green-100 text-green-700"
+                ? "bg-green-500/10 text-green-500"
                 : quiz.status === "closed"
-                ? "bg-red-100 text-red-700"
-                : "bg-yellow-100 text-yellow-700"
+                ? "bg-red-500/10 text-red-500"
+                : "bg-yellow-500/10 text-yellow-500"
             }`}
           >
             {quiz.status === "published"
@@ -34,11 +34,11 @@ export function QuizCard({ quiz }: { quiz: Quiz }) {
 
         {/* Description */}
         {quiz.description && (
-          <p className="text-sm text-gray-600 line-clamp-2">{quiz.description}</p>
+          <p className="text-sm text-muted-foreground line-clamp-2">{quiz.description}</p>
         )}
 
         {/* Dates */}
-        <div className="text-xs text-gray-400 space-y-1">
+        <div className="text-xs text-muted-foreground/60 space-y-1">
           <div>Created: {new Date(quiz.createdAt).toLocaleDateString()}</div>
           
           {quiz.opensAt && (

@@ -94,31 +94,33 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
                     const isUserSelection = q.userAnswer === opt.id;
                     const isCorrectOption = opt.isCorrect;
                     
-                    let borderColor = "border-gray-100";
-                    let bgColor = "bg-white";
+                    let borderColor = "border-border";
+                    let bgColor = "bg-muted/10";
                     let icon = null;
+                    let dotColor = "border-muted";
 
                     if (isCorrectOption) {
                       borderColor = "border-green-500";
-                      bgColor = "bg-green-50/50";
+                      bgColor = "bg-green-500/10";
                       icon = <CheckCircle2 className="w-5 h-5 text-green-500" />;
                     } else if (isUserSelection && !isCorrectOption) {
                       borderColor = "border-red-500";
-                      bgColor = "bg-red-50/50";
+                      bgColor = "bg-red-500/10";
                       icon = <XCircle className="w-5 h-5 text-red-500" />;
                     } else if (isUserSelection) {
-                       borderColor = "border-blue-400 shadow-sm";
+                       borderColor = "border-primary shadow-none";
+                       dotColor = "border-primary";
                     }
 
                     return (
-                      <div key={opt.id} className={`flex items-center justify-between space-x-3 p-4 rounded-xl border-2 transition-all ${borderColor} ${bgColor}`}>
+                      <div key={opt.id} className={`flex items-center justify-between space-x-3 p-4 rounded-[var(--radius)] border-2 transition-all ${borderColor} ${bgColor}`}>
                         <div className="flex items-center space-x-4">
                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                             isUserSelection ? 'border-blue-500 bg-blue-500' : 'border-gray-200'
+                             isUserSelection ? 'border-primary bg-primary' : dotColor
                            }`}>
-                             {isUserSelection && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                             {isUserSelection && <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />}
                            </div>
-                           <Label className="flex-1 text-base font-medium">{opt.text}</Label>
+                           <Label className="flex-1 text-base font-medium text-foreground">{opt.text}</Label>
                         </div>
                         {icon}
                       </div>

@@ -53,12 +53,12 @@ export default async function StudentScoresRoot() {
                       <CardTitle className="text-lg">{attempt.quizTitle}</CardTitle>
                       {isSubmitted ? (
                         passed ? (
-                          <Badge className="bg-green-100 text-green-700 hover:bg-green-100 border-none">Passed</Badge>
+                          <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/10 border-none">Passed</Badge>
                         ) : (
-                          <Badge className="bg-red-100 text-red-700 hover:bg-red-100 border-none">Failed</Badge>
+                          <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/10 border-none">Failed</Badge>
                         )
                       ) : (
-                        <Badge variant="secondary" className="bg-orange-100 text-orange-700 hover:bg-orange-100 border-none">
+                        <Badge variant="secondary" className="bg-orange-500/10 text-orange-500 hover:bg-orange-500/10 border-none">
                            Ongoing
                         </Badge>
                       )}
@@ -85,7 +85,7 @@ export default async function StudentScoresRoot() {
                     )}
                   </CardContent>
                   {!isSubmitted && (
-                     <CardFooter className="bg-gray-50 border-t px-6 py-4">
+                     <CardFooter className="bg-muted/50 border-t px-6 py-4">
                        <Link href={`/student/tests/${attempt.quizId}`} className="w-full">
                          <Button className="w-full" variant="outline">Resume Test</Button>
                        </Link>
