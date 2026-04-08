@@ -1,8 +1,8 @@
-"use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Classroom } from "../../types/classroom";
+import { Classroom } from "../../../types/classroom";
+import Link from "next/link";
+import ClassViewButton from "./view-button";
 
 
 export function ClassroomCard({ classroom }: { classroom: Classroom }) {
@@ -42,13 +42,9 @@ export function ClassroomCard({ classroom }: { classroom: Classroom }) {
 
         {/* Actions */}
         <div className="flex gap-2 pt-2">
-          <Button size="sm" variant="outline">
-            View
-          </Button>
+          <ClassViewButton id={classroom.id} />
 
-          <Button size="sm">
-            Open
-          </Button>
+       
         </div>
       </CardContent>
     </Card>

@@ -1,7 +1,7 @@
 import { getSession } from "@/app/auth/lib/session";
-import { getClassrooms } from "../server/classroom.queries";
-import { ClassroomList } from "./components/class-list";
-import { AddQuizDialog } from "./components/quiz-form-dialog";
+import { getClassrooms } from "../server/actions/classroom/classroom.queries";
+import { ClassroomList } from "./components/classes/class-list";
+import { AddClassRoomDialog } from "./components/classes/form-dialog";
 import SignInPage from "@/modules/auth/components/sign-in/page";
 
 export default async function CLassRoom() {
@@ -26,7 +26,7 @@ export default async function CLassRoom() {
 
           {/* keep your dialog here */}
           <div>
-            <AddQuizDialog />
+            <AddClassRoomDialog />
           </div>
         </div>
 

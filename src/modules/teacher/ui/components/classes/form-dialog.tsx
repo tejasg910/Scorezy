@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { createClassroom } from "../../server/classroom.actions";
+import { createClassroom } from "../../../server/actions/classroom/classroom.actions";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/dialog";
 
 import { useSession } from "@/lib/auth-client";
-import { ClassroomState } from "../../types/classroom";
+import { ClassroomState } from "../../../types/classroom";
 
-export function AddQuizDialog() {
+export function AddClassRoomDialog() {
   const { data } = useSession();
 
   const [state, action, pending] = useActionState<ClassroomState, FormData>(
