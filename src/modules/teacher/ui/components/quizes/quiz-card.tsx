@@ -3,7 +3,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Quiz } from "../../../types/quiz";
-import QuestionEditButton from "./edit-button";
+import QuestionEditButton from "./view-button";
+import { AddEditQuizDialog } from "./create-quiz-form";
 
 export function QuizCard({ quiz }: { quiz: Quiz }) {
   const isActive = quiz.status === "published";
@@ -50,9 +51,7 @@ export function QuizCard({ quiz }: { quiz: Quiz }) {
 
         {/* Actions */}
         <div className="flex gap-2 pt-2">
-          <Button size="sm" variant="outline">
-            View
-          </Button>
+          <AddEditQuizDialog classroomId={quiz.classroomId} editingQuiz={quiz} trigger={<Button size="sm">Edit</Button>} />
          
           <QuestionEditButton id={quiz.classroomId} quizId={quiz.id} />
       

@@ -5,7 +5,8 @@ import { ClassroomList } from "./components/classes/class-list";
 import SignInPage from "@/modules/auth/components/sign-in/page";
 import { getQuizzesByClassroom } from "../server/actions/quiz/quiz.queries";
 import { QuizList } from "./components/quizes/quiz-list";
-import { AddQuizDialog } from "./components/quizes/create-quiz-form";
+import { AddEditQuizDialog } from "./components/quizes/create-quiz-form";
+
 
 export default async function Quizzes({ id }: { id: string }) {
   const user = await getSession();
@@ -29,7 +30,7 @@ console.log(quizData, "tis si quiz data")
 
           {/* keep your dialog here */}
           <div>
-            <AddQuizDialog classroomId={id} />
+          <AddEditQuizDialog classroomId={id} />
           </div>
         </div>
 
