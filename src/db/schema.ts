@@ -80,8 +80,8 @@ export const quizzes = pgTable('quizzes', {
   status: quizStatusEnum('status').notNull().default('draft'),
   opensAt: timestamp('opens_at'),
   closesAt: timestamp('closes_at'),
-  timeLimit: integer('time_limit').notNull().default(30),
-  passingMarks: integer('passing_marks').notNull().default(0),
+  timeLimit: integer('time_limit').default(30),
+  passingMarks: integer('passing_marks').default(0),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
