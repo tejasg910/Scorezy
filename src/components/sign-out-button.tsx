@@ -3,18 +3,26 @@
 import {   authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export function SignOutButton() {
   const router = useRouter()
 
-  async function handleSignOut() {
-    await authClient.signOut()
-    router.push("/auth/sign-in")
+ const [loggingOut, setLoggingOut] = useState<boolean>(false);
+  const handleLogout = ()=>{
+    setLoggingOut(true);
+    console.log("Logging out...")
+    authClient.signOut().then(() => {
+      router.push("/auth/sign-in")
+      console.log("Logged out successfully")
+    }).finally(() => {
+      setLoggingOut(false);
+    })
   }
 
   return (
-    <Button variant="outline" onClick={handleSignOut}>
-      Sign out
+    <Button variant="outline" onClick={handleLogout} disabled={loggingOut}>
+      {loggingOut ? "Please Wait..." : "Sign Out"}
     </Button>
   )
 }
