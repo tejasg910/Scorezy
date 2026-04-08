@@ -18,8 +18,8 @@ export function ClassroomCard({ classroom }: { classroom: Classroom }) {
           <span
             className={`text-xs px-2 py-1 rounded-full ${
               classroom.isActive
-                ? "bg-green-100 text-green-700"
-                : "bg-gray-100 text-gray-600"
+                ? "bg-green-100/10 text-green-500"
+                : "bg-muted text-muted-foreground"
             }`}
           >
             {classroom.isActive ? "Active" : "Inactive"}
@@ -27,15 +27,15 @@ export function ClassroomCard({ classroom }: { classroom: Classroom }) {
         </div>
 
         {/* Invite Code */}
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-muted-foreground">
           Invite Code:{" "}
-          <span className="font-mono text-black">
+          <span className="font-mono text-foreground">
             {classroom.inviteCode}
           </span>
         </div>
 
         {/* Created Date */}
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-muted-foreground/60">
           Created:{" "}
           {new Date(classroom.createdAt).toLocaleDateString()}
         </div>

@@ -4,9 +4,9 @@ import { Users, Calendar } from "lucide-react";
 export function ClassList({ data }: { data: any[] }) {
   if (data.length === 0) {
     return (
-      <div className="text-center py-12 border border-dashed rounded-lg bg-white">
-        <h3 className="mt-2 text-sm font-semibold text-gray-900">No classes</h3>
-        <p className="mt-1 text-sm text-gray-500">
+      <div className="text-center py-12 border border-dashed rounded-[var(--radius)] bg-background">
+        <h3 className="mt-2 text-sm font-semibold text-foreground">No classes</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
           Get started by enrolling in your first classroom using an invite code.
         </p>
       </div>
@@ -28,8 +28,8 @@ export function ClassList({ data }: { data: any[] }) {
               </div>
             </div>
           </CardHeader>
-          <CardFooter className="bg-gray-50 rounded-b-xl border-t px-6 py-4">
-            <div className="flex w-full items-center justify-between text-sm text-gray-500">
+          <CardFooter className="bg-muted border-t px-6 py-4">
+            <div className="flex w-full items-center justify-between text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Users className="w-4 h-4" /> Enrolled
               </span>

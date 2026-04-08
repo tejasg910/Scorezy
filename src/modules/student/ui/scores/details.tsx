@@ -16,28 +16,28 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
   const q = attempt.questions[currentIndex];
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-32 min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto space-y-6">
         
         {/* Header Summary */}
-        <div className="bg-white border rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="bg-card border border-border rounded-[var(--radius)] p-6 shadow-none flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-2xl font-bold">{attempt.quizTitle}</h1>
-            <div className="flex items-center gap-2 mt-2 text-sm text-gray-500">
+            <h1 className="text-2xl font-bold text-foreground">{attempt.quizTitle}</h1>
+            <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
                <Clock className="w-4 h-4" />
                Submitted: {attempt.submittedAt ? attempt.submittedAt.toLocaleString() : "Not submitted"}
             </div>
           </div>
-          <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-lg border">
+          <div className="flex items-center gap-4 bg-muted p-4 rounded-[var(--radius)] border border-border">
             <div className="mr-4">
-              <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Your Score</p>
-              <p className="text-3xl font-bold">{attempt.score} <span className="text-lg font-normal text-gray-400">/ {attempt.total}</span></p>
+              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Your Score</p>
+              <p className="text-3xl font-bold text-foreground">{attempt.score} <span className="text-lg font-normal text-muted-foreground">/ {attempt.total}</span></p>
             </div>
             {isSubmitted && (
                passed ? (
-                 <Badge className="bg-green-100 text-green-800 hover:bg-green-100 text-sm py-1 px-3 border-none">Passed</Badge>
+                 <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/20 text-sm py-1 px-3 border-none">Passed</Badge>
                ) : (
-                 <Badge className="bg-red-100 text-red-800 hover:bg-red-100 text-sm py-1 px-3 border-none">Failed</Badge>
+                 <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/20 text-sm py-1 px-3 border-none">Failed</Badge>
                )
             )}
           </div>
@@ -49,12 +49,12 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`w-7 h-7 rounded-md border text-[10px] font-bold transition-all ${
+                className={`w-7 h-7 rounded-[var(--radius)] border text-[10px] font-bold transition-all ${
                   currentIndex === idx 
-                    ? "bg-gray-900 border-gray-900 text-white scale-110 shadow-sm" 
+                    ? "bg-primary border-primary text-primary-foreground scale-110 shadow-sm" 
                     : que.isCorrect
-                    ? "bg-green-50 border-green-200 text-green-700 hover:bg-green-100"
-                    : "bg-red-50 border-red-200 text-red-700 hover:bg-red-100"
+                    ? "bg-green-500/10 border-green-500/20 text-green-500 hover:bg-green-500/20"
+                    : "bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20"
                 }`}
               >
                 {idx + 1}
@@ -64,7 +64,7 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
 
         {/* Action Bar */}
         <div className="flex justify-between items-center">
-           <h2 className="text-xl font-semibold">Detailed Results <span className="text-sm font-normal text-gray-500">(Q{currentIndex + 1})</span></h2>
+           <h2 className="text-xl font-semibold text-foreground">Detailed Results <span className="text-sm font-normal text-muted-foreground">(Q{currentIndex + 1})</span></h2>
            <Link href="/student/scores">
              <Button variant="outline">Back to Scores</Button>
            </Link>
@@ -74,20 +74,20 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
         <div className="space-y-6">
           {q && (
             <Card key={q.id}>
-              <div className={`px-6 py-4 border-b flex justify-between items-center rounded-t-xl ${q.isCorrect ? 'bg-green-50/50' : 'bg-red-50/50'}`}>
-                 <span className="text-sm font-semibold text-gray-600 uppercase tracking-tight">Question {currentIndex + 1}</span>
+              <div className={`px-6 py-4 border-b border-border flex justify-between items-center rounded-t-[var(--radius)] ${q.isCorrect ? 'bg-green-500/5' : 'bg-red-500/5'}`}>
+                 <span className="text-sm font-semibold text-muted-foreground uppercase tracking-tight">Question {currentIndex + 1}</span>
                  {q.isCorrect ? (
-                   <span className="flex items-center text-sm font-bold text-green-600">
+                   <span className="flex items-center text-sm font-bold text-green-500">
                      <CheckCircle2 className="w-4 h-4 mr-1" /> Correct (+{q.marks})
                    </span>
                  ) : (
-                   <span className="flex items-center text-sm font-bold text-red-600">
+                   <span className="flex items-center text-sm font-bold text-red-500">
                      <XCircle className="w-4 h-4 mr-1" /> Incorrect (0/{q.marks})
                    </span>
                  )}
               </div>
               <CardContent className="pt-8 px-8 pb-10">
-                <h3 className="text-xl font-medium text-gray-900 leading-relaxed mb-8">{q.body}</h3>
+                <h3 className="text-xl font-medium text-foreground leading-relaxed mb-8">{q.body}</h3>
                 
                 <div className="space-y-3">
                   {q.options.map((opt: any) => {

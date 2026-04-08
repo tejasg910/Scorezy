@@ -18,24 +18,24 @@ export default async function StudentTestsRoot() {
   const activeQuizzes = quizzes.filter(q => q.status === "published");
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-32">
       <div className="max-w-6xl mx-auto space-y-6">
         
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">
+            <h1 className="text-2xl font-semibold text-foreground">
               Available Tests
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Tests assigned to your enrolled classrooms
             </p>
           </div>
         </div>
 
         {activeQuizzes.length === 0 ? (
-          <div className="text-center py-12 border border-dashed rounded-lg bg-white">
-            <h3 className="mt-2 text-sm font-semibold text-gray-900">No active tests</h3>
-            <p className="mt-1 text-sm text-gray-500">
+          <div className="text-center py-12 border border-dashed bg-background">
+            <h3 className="mt-2 text-sm font-semibold text-foreground">No active tests</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
               You are all caught up! Check back later.
             </p>
           </div>
@@ -50,7 +50,7 @@ export default async function StudentTestsRoot() {
                       {quiz.description}
                     </CardDescription>
                   )}
-                  <div className="flex items-center gap-4 mt-4 text-xs text-gray-500 border-t pt-4 border-gray-100">
+                  <div className="flex items-center gap-4 mt-4 text-xs text-muted-foreground border-t pt-4 border-border">
                     <span className="flex items-center gap-1">
                       <Clock className="w-4 h-4" /> {quiz.timeLimit} mins
                     </span>
@@ -59,7 +59,7 @@ export default async function StudentTestsRoot() {
                     </span>
                   </div>
                 </CardHeader>
-                <CardFooter className="bg-gray-50 rounded-b-xl border-t px-6 py-4 mt-auto">
+                <CardFooter className="bg-muted border-t px-6 py-4 mt-auto">
                   <Link href={`/student/tests/${quiz.id}`} className="w-full">
                     <Button className="w-full" variant="default">
                       <PlayCircle className="w-4 h-4 mr-2" /> Start Test

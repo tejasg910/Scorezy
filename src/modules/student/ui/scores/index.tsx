@@ -19,24 +19,24 @@ export default async function StudentScoresRoot() {
   const sortedAttempts = [...attempts].sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
 
   return (
-    <div className="p-6">
+    <div className="p-6 pt-32">
       <div className="max-w-6xl mx-auto space-y-6">
         
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">
+            <h1 className="text-2xl font-semibold text-foreground">
               Completed Tests
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               Review your past test attempts and scores
             </p>
           </div>
         </div>
 
         {sortedAttempts.length === 0 ? (
-          <div className="text-center py-12 border border-dashed rounded-lg bg-white">
-            <h3 className="mt-2 text-sm font-semibold text-gray-900">No attempts yet</h3>
-            <p className="mt-1 text-sm text-gray-500">
+          <div className="text-center py-12 border border-dashed bg-background">
+            <h3 className="mt-2 text-sm font-semibold text-foreground">No attempts yet</h3>
+            <p className="mt-1 text-sm text-muted-foreground">
               Go to the Tests tab to start your first quiz!
             </p>
           </div>

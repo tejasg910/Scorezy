@@ -1,24 +1,26 @@
 import type { Metadata } from "next";
-import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
+import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 
-// Primary font for body text - excellent readability for quiz questions
-const inter = Inter({
-  variable: "--font-inter",
+// Header and brand font
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-// Heading font - modern and engaging for quiz UI
-const poppins = Poppins({
-  variable: "--font-poppins",
-  weight: ["400", "500", "600", "700"],
+// Body and content font
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
   display: "swap",
 });
 
-// Code font - perfect for technical/code quizzes
+// Code font - keeping it as it's useful for technical bits
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
@@ -38,9 +40,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className={`${syne.variable} ${dmSans.variable} ${jetbrainsMono.variable} min-h-full flex flex-col`}>
+      <CustomCursor />
       <Header/>
       {children}</body>
     </html>

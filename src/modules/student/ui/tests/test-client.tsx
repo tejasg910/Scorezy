@@ -44,7 +44,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
   }, [attemptId, quiz.id, initialTimeRemaining]); // we intentionally don't put store here to avoid loops
 
   if (!hydrated || targetDate === null) {
-    return <div className="flex h-64 items-center justify-center border-2 border-dashed rounded-lg bg-gray-50"><Loader2 className="w-6 h-6 animate-spin text-gray-400" /></div>;
+    return <div className="flex h-64 items-center justify-center border-2 border-dashed rounded-[var(--radius)] bg-muted/20"><Loader2 className="w-6 h-6 animate-spin text-muted-foreground" /></div>;
   }
 
   const handleSubmit = async () => {
@@ -83,15 +83,15 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
   return (
     <div className="space-y-6">
       {/* Sticky Header with Timer */}
-      <div className="sticky top-16 z-40 bg-white/80 backdrop-blur border-b shadow-sm -mt-6 -mx-6 p-4 px-6 md:px-10 flex justify-between items-center">
+      <div className="sticky top-16 z-40 bg-background/80 backdrop-blur border-b border-border shadow-sm -mt-6 -mx-6 p-4 px-6 md:px-10 flex justify-between items-center">
         <div className="flex-1">
-          <h2 className="text-xl font-bold truncate max-w-[200px] md:max-w-none">{quiz.title}</h2>
-          <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
-             <span className="font-medium text-blue-600">Question {store.currentQuestionIndex + 1}</span> of {quiz.questions.length}
+          <h2 className="text-xl font-bold truncate max-w-[200px] md:max-w-none text-foreground">{quiz.title}</h2>
+          <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
+             <span className="font-medium text-primary">Question {store.currentQuestionIndex + 1}</span> of {quiz.questions.length}
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="bg-gray-100 px-4 py-2 border rounded-md min-w-[80px] text-center">
+          <div className="bg-muted px-4 py-2 border border-border rounded-[var(--radius)] min-w-[80px] text-center">
             {initialTimeRemaining > 0 ? (
                <Countdown 
                  date={targetDate} 
@@ -99,7 +99,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                  onComplete={handleTimeUp} 
                />
             ) : (
-               <span className="text-gray-500 font-mono">Untimed</span>
+               <span className="text-muted-foreground font-mono">Untimed</span>
             )}
           </div>
           <Button 
@@ -125,10 +125,10 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                 onClick={() => store.setCurrentQuestionIndex(idx)}
                 className={`w-8 h-8 rounded-full border text-xs font-bold transition-all ${
                   store.currentQuestionIndex === idx 
-                    ? "bg-blue-600 border-blue-600 text-white shadow-md scale-110" 
+                    ? "bg-primary border-primary text-primary-foreground scale-110" 
                     : store.answers[quiz.questions[idx].id]
-                    ? "bg-green-100 border-green-200 text-green-700"
-                    : "bg-white text-gray-400 hover:border-gray-400"
+                    ? "bg-primary/20 border-primary/40 text-primary"
+                    : "bg-background text-muted-foreground hover:border-muted-foreground"
                 }`}
               >
                 {idx + 1}
@@ -137,13 +137,13 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
         </div>
 
         {currentQuestion && (
-          <Card key={currentQuestion.id} className="shadow-lg border-2 border-gray-100">
-            <div className="bg-gray-50 px-6 py-4 border-b flex justify-between items-center rounded-t-xl">
-               <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Question {store.currentQuestionIndex + 1}</span>
-               <Badge variant="outline" className="bg-white">{currentQuestion.marks} Marks</Badge>
+          <Card key={currentQuestion.id} className="border-border shadow-none">
+            <div className="bg-muted/30 px-6 py-4 border-b border-border flex justify-between items-center rounded-t-[var(--radius)]">
+               <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Question {store.currentQuestionIndex + 1}</span>
+               <Badge variant="outline" className="bg-background">{currentQuestion.marks} Marks</Badge>
             </div>
             <CardContent className="pt-8 px-8 pb-10">
-              <h3 className="text-xl font-medium text-gray-900 leading-relaxed mb-8">{currentQuestion.body}</h3>
+              <h3 className="text-xl font-medium text-foreground leading-relaxed mb-8">{currentQuestion.body}</h3>
               
               <RadioGroup 
                 value={store.answers[currentQuestion.id] || ""} 
@@ -154,20 +154,20 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                 {currentQuestion.options.map((opt: any) => (
                   <div 
                     key={opt.id} 
-                    className={`flex items-center space-x-3 p-4 rounded-xl border-2 transition-all cursor-pointer ${
+                    className={`flex items-center space-x-3 p-4 rounded-[var(--radius)] border-2 transition-all cursor-pointer ${
                       store.answers[currentQuestion.id] === opt.id 
-                        ? "border-blue-500 bg-blue-50/50 shadow-sm" 
-                        : "border-gray-100 hover:border-gray-300 hover:bg-gray-50"
+                        ? "border-primary bg-primary/10 shadow-sm" 
+                        : "border-border hover:border-muted-foreground hover:bg-muted/20"
                     }`}
                     onClick={() => !store.isSubmitting && store.setAnswer(currentQuestion.id, opt.id)}
                   >
                     <RadioGroupItem value={opt.id} id={`opt-${opt.id}`} className="hidden" />
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      store.answers[currentQuestion.id] === opt.id ? "border-blue-500 bg-blue-500" : "border-gray-300"
+                      store.answers[currentQuestion.id] === opt.id ? "border-primary bg-primary" : "border-muted"
                     }`}>
-                      {store.answers[currentQuestion.id] === opt.id && <div className="w-2 h-2 rounded-full bg-white" />}
+                      {store.answers[currentQuestion.id] === opt.id && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
                     </div>
-                    <Label htmlFor={`opt-${opt.id}`} className="flex-1 cursor-pointer text-base font-medium">{opt.text}</Label>
+                    <Label htmlFor={`opt-${opt.id}`} className="flex-1 cursor-pointer text-base font-medium text-foreground">{opt.text}</Label>
                   </div>
                 ))}
               </RadioGroup>

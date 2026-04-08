@@ -43,7 +43,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen pt-20 flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Create your account</CardTitle>
@@ -54,13 +54,13 @@ export default function SignUpPage() {
           <CardContent className="space-y-4 p-4">
 
             {/* Role toggle */}
-            <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-lg">
+            <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-[var(--radius)]">
               {(["student", "teacher"] as const).map((r) => (
                 <button
                   key={r}
                   type="button"
                   onClick={() => setRole(r)}
-                  className={`py-2 rounded-md text-sm font-medium capitalize transition-colors ${
+                  className={`py-2 rounded-[var(--radius)] text-sm font-medium capitalize transition-colors ${
                     role === r
                       ? "bg-background shadow text-foreground"
                       : "text-muted-foreground hover:text-foreground"
