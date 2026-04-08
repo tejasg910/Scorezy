@@ -8,6 +8,13 @@
       "when": 1775621724859,
       "tag": "0000_silent_sue_storm",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1775646864863,
+      "tag": "0001_sudden_forgotten_one",
+      "breakpoints": true
     }
   ]
 }

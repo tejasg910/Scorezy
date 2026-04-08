@@ -5,9 +5,9 @@ import { AddEditQuestionDialog } from "./question-form";
 import type { QuestionWithOptions } from "@/modules/teacher/types/question";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Pencil } from "lucide-react";
 import QuestionCard from "./question-card";
+import { BulkAddQuestionsDialog } from "./bulk-question-form";
+import { useSession } from "@/lib/auth-client";
 
 export function QuizEditor({
   questions,
@@ -16,6 +16,7 @@ export function QuizEditor({
   questions: QuestionWithOptions[];
   quizId: string;
 }) {
+    const {data} = useSession()
   const [open, setOpen] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<QuestionWithOptions | null>(null);
 
@@ -36,6 +37,7 @@ export function QuizEditor({
         <Button onClick={handleAdd} size="lg" className="bg-violet-600 hover:bg-violet-700">
           + Add Question
         </Button>
+        <BulkAddQuestionsDialog quizId={quizId} />
       </div>
 
     {/* Grid Layout - Questions in Rows */}
@@ -45,7 +47,9 @@ export function QuizEditor({
             key={question.id}
             question={question}
             index={index}
-            handleEdit={handleEdit}
+            onEdit={handleEdit}
+            quizId={quizId}
+            userId={data?.user.id!}
           />
         ))}
       </div>

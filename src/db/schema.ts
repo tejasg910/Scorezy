@@ -80,6 +80,8 @@ export const quizzes = pgTable('quizzes', {
   status: quizStatusEnum('status').notNull().default('draft'),
   opensAt: timestamp('opens_at'),
   closesAt: timestamp('closes_at'),
+  timeLimit: integer('time_limit').default(30),
+  passingMarks: integer('passing_marks').default(0),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
@@ -88,6 +90,7 @@ export const questions = pgTable('questions', {
   quizId: text('quiz_id').notNull().references(() => quizzes.id, { onDelete: 'cascade' }),
   body: text('body').notNull(),
   type: questionTypeEnum('type').notNull(),
+  marks: integer('marks').notNull().default(1),
   orderIndex: integer('order_index').notNull(),
 })
 
