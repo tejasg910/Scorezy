@@ -1,7 +1,7 @@
 // types/quiz.ts
 export type Quiz = {
   id: string;
-  classroomId?: string;           // optional since getQuizzesByClassroom may not return it
+  classroomId: string;           // optional since getQuizzesByClassroom may not return it
   title: string;
   description: string | null;
   status: 'draft' | 'published' | 'closed';

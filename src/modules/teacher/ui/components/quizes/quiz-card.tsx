@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Quiz } from "../../../types/quiz";
+import QuestionEditButton from "./edit-button";
 
 export function QuizCard({ quiz }: { quiz: Quiz }) {
   const isActive = quiz.status === "published";
@@ -52,9 +53,9 @@ export function QuizCard({ quiz }: { quiz: Quiz }) {
           <Button size="sm" variant="outline">
             View
           </Button>
-          <Button size="sm">
-            {quiz.status === "published" ? "Take Quiz" : "Edit Quiz"}
-          </Button>
+         
+          <QuestionEditButton id={quiz.classroomId} quizId={quiz.id} />
+      
         </div>
       </CardContent>
     </Card>
