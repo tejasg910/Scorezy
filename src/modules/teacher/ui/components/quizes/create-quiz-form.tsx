@@ -97,6 +97,7 @@ export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) 
                 placeholder="30"
                 min={1}
                 max={180}
+                required
               />
             </div>
           </div>
@@ -109,6 +110,7 @@ export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) 
               defaultValue={editingQuiz?.passingMarks || ""}
               placeholder="e.g. 60"
               min={0}
+              required
             />
           </div>
 
