@@ -8,8 +8,8 @@ export type Quiz = {
   opensAt: Date | null;
   closesAt: Date | null;
   createdAt: Date;
-  passingMarks?: number;
- timeLimit?: number;
+  passingMarks: number | null;
+ timeLimit: number | null;
 };
 export type QuizState = {
   error?: string;

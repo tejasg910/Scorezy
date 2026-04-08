@@ -17,6 +17,8 @@ export async function getQuizzesByClassroom(classroomId: string) {
         opensAt: quizzes.opensAt,
         closesAt: quizzes.closesAt,
         createdAt: quizzes.createdAt,
+        timeLimit: quizzes.timeLimit,
+        passingMarks: quizzes.passingMarks,
       })
       .from(quizzes)
       .where(eq(quizzes.classroomId, classroomId))
