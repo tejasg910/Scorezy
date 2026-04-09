@@ -4,8 +4,12 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { startCheckout } from "../server/actions/billing.actions";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export function PricingCards() {
+  const {data} = useSession();
+  const router = useRouter()
   return (
     <section id="pricing" className="py-24 px-6 max-w-[1200px] mx-auto pt-0">
       <ScrollReveal className="text-center mb-16">
@@ -29,9 +33,14 @@ export function PricingCards() {
            featured
            feats={["Unlimited classes", "Unlimited students", "Unlimited quizzes", "Advanced analytics", "Export reports"]}
            dimmedFeats={["Priority support"]}
-           btnText="Start Pro Trial"
+           btnText={data?.user.role === 'teacher' ? "Start Pro Trial" : "Get Started"}
            onAction={async () => {
-             await startCheckout();
+              if(data?.user.role !== 'teacher') {
+                router.push('/auth/sign-in')
+              }else{
+
+                await startCheckout();
+              }
            }}
         />
         <PricingCard 
@@ -48,7 +57,6 @@ export function PricingCards() {
 
 function PricingCard({ name, amount, period, feats, dimmedFeats = [], featured = false, btnText, onAction }: any) {
   const [isPending, startTransition] = useTransition();
-
   const handleAction = () => {
     if (onAction) {
       startTransition(async () => {
