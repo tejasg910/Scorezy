@@ -1,0 +1,1 @@
+ALTER TABLE "user" ADD COLUMN "plan_cancel_at_period_end" boolean DEFAULT false NOT NULL;

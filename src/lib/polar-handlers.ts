@@ -16,12 +16,13 @@ export async function handleSubscriptionActive(subscription: any) {
             planExpiresAt: subscription.currentPeriodEnd
                 ? new Date(subscription.currentPeriodEnd)
                 : null,
+            planCancelAtPeriodEnd: subscription.cancelAtPeriodEnd ?? false,
         })
         .where(eq(user.id, userId))
 }
 
 export async function handleSubscriptionRevoked(userId: string) {
     await db.update(user)
-        .set({ plan: 'free', planExpiresAt: null })
+        .set({ plan: 'free', planExpiresAt: null, planCancelAtPeriodEnd: false })
         .where(eq(user.id, userId))
 }

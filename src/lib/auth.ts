@@ -33,7 +33,11 @@ export const auth = betterAuth({
       planExpiresAt: {
         type: 'date',
         required: false,
-      }
+      },
+      planCancelAtPeriodEnd: {
+  type: 'boolean',
+  defaultValue: false,
+}
     },
   },
    plugins: [
