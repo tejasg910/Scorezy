@@ -2,7 +2,7 @@ import { getSession } from "@/app/auth/lib/session";
 
 
 import SignInPage from "@/modules/auth/components/sign-in/page";
-import { getQuizzesByClassroom } from "../../server/actions/quiz/quiz.queries";
+import { getQuizzesByClassroom } from "../../server/actions/quiz.queries";
 import { QuizList } from "./components/quiz-list";
 import { AddEditQuizDialog } from "./components/create-quiz-form";
 

@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Pencil, Trash2 } from "lucide-react";
-import { deleteQuestion } from "@/modules/teacher/server/actions/question/question.action";
+import { deleteQuestion } from "@/modules/teacher/server/actions/question.action";
 import type { QuestionWithOptions } from "@/modules/teacher/types/question";
 
 type Props = {
@@ -16,12 +16,12 @@ type Props = {
   onEdit: (question: QuestionWithOptions) => void;
 };
 
-export default function QuestionCard({ 
-  question, 
-  index, 
-  quizId, 
-  userId, 
-  onEdit 
+export default function QuestionCard({
+  question,
+  index,
+  quizId,
+  userId,
+  onEdit
 }: Props) {
 
   const [isPending, startTransition] = useTransition();

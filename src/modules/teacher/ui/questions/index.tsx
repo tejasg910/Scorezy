@@ -1,4 +1,4 @@
-import { getQuestionsByQuiz } from "@/modules/teacher/server/actions/question/question.queries";
+import { getQuestionsByQuiz } from "@/modules/teacher/server/actions/question.queries";
 
 import { QuizEditor } from "./components/question-detail";
 import { getSession } from "@/app/auth/lib/session";

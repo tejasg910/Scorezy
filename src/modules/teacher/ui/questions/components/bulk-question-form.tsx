@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState, useEffect } from "react";
-import { bulkCreateQuestions } from "@/modules/teacher/server/actions/question/question.action";
+import { bulkCreateQuestions } from "@/modules/teacher/server/actions/question.action";
 import {
   Dialog,
   DialogContent,

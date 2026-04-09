@@ -1,5 +1,5 @@
 import { getSession } from "@/app/auth/lib/session";
-import { getClassrooms } from "../../server/actions/classroom/classroom.queries";
+import { getClassrooms } from "../../server/actions/classroom.queries";
 import { ClassroomList } from "./components/class-list";
 import { AddClassRoomDialog } from "./components/form-dialog";
 import SignInPage from "@/modules/auth/components/sign-in/page";

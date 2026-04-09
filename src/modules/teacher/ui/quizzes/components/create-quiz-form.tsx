@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useState } from "react";
-import { saveQuiz } from "@/modules/teacher/server/actions/quiz/quiz.actions";
+import { saveQuiz } from "@/modules/teacher/server/actions/quiz.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
