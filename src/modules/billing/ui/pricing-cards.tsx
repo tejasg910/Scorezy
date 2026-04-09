@@ -24,7 +24,7 @@ export function PricingCards() {
         />
         <PricingCard 
            name="Pro"
-           amount={499}
+           amount={1}
            period="per month"
            featured
            feats={["Unlimited classes", "Unlimited students", "Unlimited quizzes", "Advanced analytics", "Export reports"]}
@@ -62,7 +62,7 @@ function PricingCard({ name, amount, period, feats, dimmedFeats = [], featured =
       {featured && <div className="absolute top-0 right-0 bg-[#8b5cf6] text-[0.65rem] font-bold tracking-widest text-white px-4 py-1.5">POPULAR</div>}
       <div className="text-[0.72rem] uppercase tracking-widest text-[#71717a] mb-6">{name}</div>
       <div className="font-heading text-5xl font-extrabold tracking-tighter mb-2">
-        {typeof amount === 'number' ? <><span className="text-xl align-super font-normal mr-1 text-[#b18aff]">₹</span>{amount}</> : amount}
+        {typeof amount === 'number' ? <><span className="text-xl align-super font-normal mr-1 text-[#b18aff]">$</span>{amount}</> : amount}
       </div>
       <div className="text-sm text-[#71717a] mb-10">{period}</div>
       <ul className="space-y-4 mb-10 flex-1">

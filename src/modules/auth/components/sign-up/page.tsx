@@ -125,8 +125,8 @@ export default function SignUpPage() {
             )}
           </CardContent>
 
-          <CardFooter className="flex flex-col gap-6 p-10 pt-8">
-            <Button type="submit" variant="luxury" className="w-full h-14 text-lg" disabled={loading}>
+          <CardFooter className="flex flex-col gap-6 p-10 pt-8 mt-4">
+            <Button type="submit" variant="luxury" className="w-full h-10 text-lg" disabled={loading}>
               {loading ? "Initializing..." : "Register Infrastructure"}
             </Button>
             <div className="flex items-center gap-4 w-full">
@@ -135,7 +135,7 @@ export default function SignUpPage() {
               <div className="h-px flex-1 bg-white/5" />
             </div>
             <Link href="/auth/sign-in" className="w-full">
-               <Button type="button" variant="outline" className="w-full h-12 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 transition-all font-heading font-bold uppercase tracking-widest text-xs">
+               <Button type="button" variant="outline" className="w-full h-9 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 transition-all font-heading font-bold uppercase tracking-widest text-xs">
                  Return to Access Point
                </Button>
             </Link>

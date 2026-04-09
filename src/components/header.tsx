@@ -46,7 +46,7 @@ export function Header() {
               <Link href="/auth/sign-up">
                 <Button
                   variant="luxury"
-                  className="h-11 px-6 text-[10px] font-bold tracking-[0.2em] uppercase"
+                  className="h-8 px-6 text-[10px] font-bold tracking-[0.2em] uppercase"
                 >
                   Initialize Identity
                 </Button>
