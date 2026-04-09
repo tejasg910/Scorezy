@@ -13,6 +13,9 @@ export const user = pgTable('user', {
   role: text('role').notNull().default('student'), 
   createdAt: timestamp('created_at').notNull(),
   updatedAt: timestamp('updated_at').notNull(),
+  plan: text('plan').notNull().default('free'),         // 'free' | 'pro'
+  polarCustomerId: text('polar_customer_id'),            
+  planExpiresAt: timestamp('plan_expires_at'),          
 })
 
 export const session = pgTable('session', {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { createClassroom } from "../../../server/actions/classroom/classroom.actions";
+import { createClassroom } from "@/modules/teacher/server/actions/classroom.actions";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

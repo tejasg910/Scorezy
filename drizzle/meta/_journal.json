@@ -15,6 +15,13 @@
       "when": 1775646864863,
       "tag": "0001_sudden_forgotten_one",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1775706064874,
+      "tag": "0002_silky_the_anarchist",
+      "breakpoints": true
     }
   ]
 }
