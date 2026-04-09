@@ -12,7 +12,7 @@ export function Footer() {
           <Link href="#" className="text-[0.8rem] text-[#71717a] hover:text-[#f0eeff] transition-colors">Terms</Link>
           <Link href="#" className="text-[0.8rem] text-[#71717a] hover:text-[#f0eeff] transition-colors">Contact</Link>
         </div>
-        <div className="text-[0.8rem] text-[#404040]">© 2026 Scorezy. Digital Excellence.</div>
+        <div className="text-[0.8rem] text-[#404040]">© 2026 Scorezz. Digital Excellence.</div>
       </div>
     </footer>
   );

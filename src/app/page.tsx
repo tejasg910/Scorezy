@@ -17,28 +17,28 @@ export default function Home() {
       <section className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-20 overflow-hidden">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div 
-            className="absolute inset-0 opacity-[0.06]" 
-            style={{ 
+          <div
+            className="absolute inset-0 opacity-[0.06]"
+            style={{
               backgroundImage: `linear-gradient(#b18aff 1px, transparent 1px), linear-gradient(90deg, #b18aff 1px, transparent 1px)`,
               backgroundSize: '60px 60px',
               maskImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)'
             }}
           />
-          <motion.div 
+          <motion.div
             animate={{ x: [0, 40, 0], y: [0, 30, 0], scale: [1, 1.08, 1] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-[100px] -right-[100px] w-[600px] h-[600px] rounded-full bg-[#b18aff]/15 blur-[100px]" 
+            className="absolute -top-[100px] -right-[100px] w-[600px] h-[600px] rounded-full bg-[#b18aff]/15 blur-[100px]"
           />
-          <motion.div 
+          <motion.div
             animate={{ x: [0, -30, 0], y: [0, -40, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute -bottom-[50px] -left-[80px] w-[400px] h-[400px] rounded-full bg-[#c084fc]/10 blur-[100px]" 
+            className="absolute -bottom-[50px] -left-[80px] w-[400px] h-[400px] rounded-full bg-[#c084fc]/10 blur-[100px]"
           />
         </div>
 
         <div className="relative z-10 max-w-[900px] text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 border border-[#b18aff]/40 bg-[#b18aff]/10 px-4 py-1.5 text-[0.7rem] font-medium tracking-[0.12em] uppercase text-[#b18aff] mb-8"
@@ -47,7 +47,7 @@ export default function Home() {
             Mock Tests · Practice · Progress
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -55,12 +55,12 @@ export default function Home() {
           >
             Ace Every Exam<br />
             with <span className="text-[#b18aff] relative inline-block">
-              Scorezy
+              Scorezz
               <span className="absolute bottom-0 left-0 right-0 h-1 md:h-1.5 bg-gradient-to-r from-[#8b5cf6] to-[#d946ef]" />
             </span>
           </motion.h1>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -69,14 +69,14 @@ export default function Home() {
             A powerful quiz platform for teachers and students. Create classes, build quizzes, share invite codes — and track every attempt in real-time.
           </motion.p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Link href="/auth/sign-up">
-              <motion.button 
+              <motion.button
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="w-56 h-14 bg-[#8b5cf6] hover:bg-[#a78bfa] text-white text-base font-bold tracking-wider transition-all rounded-none"
@@ -89,7 +89,7 @@ export default function Home() {
             </button>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -131,9 +131,8 @@ export default function Home() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-8 py-3 font-heading text-[0.85rem] font-bold tracking-wider uppercase transition-all ${
-                  activeTab === tab ? "bg-[#8b5cf6] text-white" : "text-[#71717a] hover:bg-white/5 hover:text-[#f0eeff]"
-                }`}
+                className={`px-8 py-3 font-heading text-[0.85rem] font-bold tracking-wider uppercase transition-all ${activeTab === tab ? "bg-[#8b5cf6] text-white" : "text-[#71717a] hover:bg-white/5 hover:text-[#f0eeff]"
+                  }`}
               >
                 For {tab}s
               </button>
@@ -144,7 +143,7 @@ export default function Home() {
         <div className="relative min-h-[400px]">
           <AnimatePresence mode="wait">
             {activeTab === "teacher" ? (
-              <motion.div 
+              <motion.div
                 key="teacher"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -152,11 +151,11 @@ export default function Home() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10"
               >
                 {teacherSteps.map((step, i) => (
-                  <StepCard key={step.title} step={{...step, num: `0${i+1}`}} delay={i * 0.1} />
+                  <StepCard key={step.title} step={{ ...step, num: `0${i + 1}` }} delay={i * 0.1} />
                 ))}
               </motion.div>
             ) : (
-              <motion.div 
+              <motion.div
                 key="student"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -164,7 +163,7 @@ export default function Home() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10"
               >
                 {studentSteps.map((step, i) => (
-                  <StepCard key={step.title} step={{...step, num: `0${i+1}`}} delay={i * 0.1} />
+                  <StepCard key={step.title} step={{ ...step, num: `0${i + 1}` }} delay={i * 0.1} />
                 ))}
               </motion.div>
             )}
@@ -204,11 +203,11 @@ export default function Home() {
                     <div key={row.label} className="flex items-center gap-3">
                       <span className="w-24 text-[0.8rem] text-[#71717a]">{row.label}</span>
                       <div className="flex-1 h-1.5 bg-white/5 overflow-hidden">
-                        <motion.div 
+                        <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: row.pct }}
                           transition={{ duration: 1, delay: 0.5 }}
-                          className="h-full bg-gradient-to-r from-[#8b5cf6] to-[#d946ef]" 
+                          className="h-full bg-gradient-to-r from-[#8b5cf6] to-[#d946ef]"
                         />
                       </div>
                       <span className="w-10 text-right font-heading font-bold text-[0.85rem]">{row.pct}</span>
@@ -247,9 +246,9 @@ export default function Home() {
           <div className="text-[#b18aff] text-xs font-semibold tracking-[0.16em] uppercase mb-4">Built for both</div>
           <h2 className="font-heading text-4xl md:text-5xl font-extrabold tracking-tight mb-6">Which role fits you?</h2>
         </ScrollReveal>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <RoleCard 
+          <RoleCard
             type="teacher"
             title={<>You teach.<br />We handle the rest.</>}
             list={[
@@ -260,7 +259,7 @@ export default function Home() {
               "Download reports for parent meetings"
             ]}
           />
-          <RoleCard 
+          <RoleCard
             type="student"
             title={<>Practice until<br />you perfect it.</>}
             list={[
@@ -303,7 +302,7 @@ function RoleCard({ type, title, list }: { type: string; title: any; list: strin
       <div className={`p-10 border border-white/10 bg-[#15151e] relative overflow-hidden h-full flex flex-col`}>
         <div className={`absolute top-0 left-0 right-0 h-1 transition-all group-hover:h-1.5 ${type === 'teacher' ? 'bg-[#8b5cf6]' : 'bg-[#c084fc]'}`} />
         <div className="flex items-center gap-2 text-[0.72rem] uppercase tracking-widest text-[#71717a] mb-6">
-           <div className="w-5 h-px bg-current" /> {type}
+          <div className="w-5 h-px bg-current" /> {type}
         </div>
         <h3 className="font-heading text-2xl font-extrabold tracking-tight mb-8 leading-tight">{title}</h3>
         <ul className="space-y-4 mb-10 flex-1">
@@ -314,7 +313,7 @@ function RoleCard({ type, title, list }: { type: string; title: any; list: strin
           ))}
         </ul>
         <button className="flex items-center gap-2 font-heading text-[0.85rem] font-bold text-[#b18aff] tracking-wider transition-all hover:gap-4">
-           Register as {type === 'teacher' ? 'Teacher' : 'Student'} →
+          Register as {type === 'teacher' ? 'Teacher' : 'Student'} →
         </button>
       </div>
     </ScrollReveal>

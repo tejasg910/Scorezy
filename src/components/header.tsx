@@ -17,7 +17,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="font-heading text-2xl font-extrabold tracking-tighter text-[#f0eeff]">
-            score<span className="text-[#b18aff]">zy</span>
+            score<span className="text-[#b18aff]">zz</span>
           </span>
         </Link>
 

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import {  authClient, useSession } from "@/lib/auth-client"
+import { authClient, useSession } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -52,8 +52,8 @@ export default function SignInPage() {
       <Card className="w-full max-w-md border-white/5 bg-[#15151e] rounded-none shadow-2xl relative z-10">
         <CardHeader className="space-y-2 pb-8">
           <div className="flex items-center gap-3">
-             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8b5cf6]">Authorized Access Only</span>
-             <div className="h-px flex-1 bg-white/5" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8b5cf6]">Authorized Access Only</span>
+            <div className="h-px flex-1 bg-white/5" />
           </div>
           <CardTitle className="text-4xl font-heading font-extrabold tracking-tight text-[#f0eeff]">
             Welcome <span className="text-[#8b5cf6]">Back</span>
@@ -67,24 +67,24 @@ export default function SignInPage() {
           <CardContent className="space-y-6 px-10">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Credential Identity</Label>
-              <Input 
-                id="email" 
-                name="email" 
-                type="email" 
-                placeholder="alex@scorezy.com" 
-                required 
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="alex@scorezz.com"
+                required
                 className="bg-white/5 border-white/5 text-[#f0eeff] focus:border-[#8b5cf6]/50 rounded-none transition-all h-12"
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password" dir="ltr" className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Security Key</Label>
-              <Input 
-                id="password" 
-                name="password" 
-                type="password" 
-                placeholder="••••••••" 
-                required 
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="••••••••"
+                required
                 className="bg-white/5 border-white/5 text-[#f0eeff] focus:border-[#8b5cf6]/50 rounded-none transition-all h-12"
               />
             </div>
@@ -102,13 +102,13 @@ export default function SignInPage() {
             </Button>
             <div className="flex items-center gap-4 w-full">
               <div className="h-px flex-1 bg-white/5" />
-              <p className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">New to Scorezy?</p>
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">New to Scorezz?</p>
               <div className="h-px flex-1 bg-white/5" />
             </div>
             <Link href="/auth/sign-up" className="w-full">
-               <Button type="button" variant="outline" className="w-full h-9 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 transition-all font-heading font-bold uppercase tracking-widest text-xs">
-                 Initialize Account
-               </Button>
+              <Button type="button" variant="outline" className="w-full h-9 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 transition-all font-heading font-bold uppercase tracking-widest text-xs">
+                Initialize Account
+              </Button>
             </Link>
           </CardFooter>
         </form>
