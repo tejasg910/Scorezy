@@ -97,7 +97,7 @@ export default function SignInPage() {
           </CardContent>
 
           <CardFooter className="flex flex-col gap-6 p-10 pt-8 mt-4">
-            <Button type="submit" variant="luxury" className="w-full h-10 text-lg" disabled={loading}>
+            <Button type="submit" variant="luxury" className="w-full h-8 text-md" disabled={loading}>
               {loading ? "Authenticating..." : "Sign In to Dashboard"}
             </Button>
             <div className="flex items-center gap-4 w-full">

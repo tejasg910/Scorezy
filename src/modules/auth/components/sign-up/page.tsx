@@ -125,7 +125,7 @@ export default function SignUpPage() {
           </CardContent>
 
           <CardFooter className="flex flex-col gap-6 p-10 pt-8 mt-4">
-            <Button type="submit" variant="luxury" className="w-full h-10 text-lg" disabled={loading}>
+            <Button type="submit" variant="luxury" className="w-full h-8 text-md" disabled={loading}>
               {loading ? "Initializing..." : "Register Infrastructure"}
             </Button>
             <div className="flex items-center gap-4 w-full">
