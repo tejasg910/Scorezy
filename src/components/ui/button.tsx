@@ -18,6 +18,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        luxury: "bg-[#8b5cf6] hover:bg-[#a78bfa] text-white font-heading font-bold tracking-widest uppercase transition-all active:scale-[0.98] border-none rounded-none",
       },
       size: {
         default:
@@ -49,7 +50,10 @@ function Button({
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+        variant === 'luxury' && "relative overflow-hidden"
+      )}
       {...props}
     />
   )

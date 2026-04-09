@@ -10,17 +10,17 @@ export default async function CLassRoom() {
   const classRoomData = await getClassrooms(user?.user.id);
 
   return (
-    <div className="min-h-screen bg-background p-6 pt-32">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="p-6 pt-32 lg:pt-20">
+      <div className="max-w-6xl space-y-8">
 
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-foreground">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/5">
+          <div className="space-y-1">
+            <h1 className="text-4xl font-heading font-extrabold tracking-tight text-[#f0eeff]">
               Classrooms
             </h1>
-            <p className="text-sm text-muted-foreground">
-              Manage and organize your classrooms
+            <p className="text-[#a1a1aa] text-lg">
+              Manage and organize your elite educational spaces.
             </p>
           </div>
 

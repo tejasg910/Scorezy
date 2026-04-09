@@ -44,45 +44,44 @@ export default function QuestionCard({
   };
 
   return (
-    <Card className="hover:shadow-md transition-all duration-200 group">
-      <CardContent className="p-5 flex items-center gap-5">
-        {/* Question Number */}
-        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-sm font-semibold text-muted-foreground flex-shrink-0">
-          {index + 1}
+    <Card className="group relative border-white/5 bg-[#15151e] overflow-hidden hover:border-[#8b5cf6]/50 transition-all duration-300 rounded-none">
+      <CardContent className="p-6 flex items-center gap-6">
+        {/* Question Number (Squared) */}
+        <div className="w-12 h-12 bg-white/5 border border-white/10 flex items-center justify-center text-sm font-heading font-extrabold text-[#f0eeff] flex-shrink-0 transition-all group-hover:bg-[#8b5cf6] group-hover:border-[#8b5cf6]">
+          {String(index + 1).padStart(2, '0')}
         </div>
-
         {/* Question Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-3 mb-1">
-            <Badge variant="outline" className="text-xs font-medium">
-              {question.type === "mcq" ? "MCQ" : "True/False"}
-            </Badge>
-            <span className="text-xs text-muted-foreground">
-              {question.options.length} options
+          <div className="flex items-center gap-3 mb-2">
+            <span className="text-[10px] px-2 py-0.5 font-bold uppercase tracking-widest bg-[#8b5cf6]/10 text-[#b18aff] border border-[#8b5cf6]/20">
+              {question.type === "mcq" ? "MCQ" : "T/F"}
+            </span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">
+              {question.options.length} Options Defined
             </span>
           </div>
-          <p className="text-[17px] leading-tight line-clamp-2 text-foreground">
+          <p className="text-lg leading-snug line-clamp-2 text-[#f0eeff] font-medium group-hover:text-white transition-colors">
             {question.body}
           </p>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0">
           <Button
             variant="ghost"
-            size="sm"
+            size="icon"
             onClick={() => onEdit(question)}
-            className="text-muted-foreground hover:text-primary"
+            className="w-10 h-10 text-[#71717a] hover:text-[#8b5cf6] hover:bg-white/5 rounded-none"
           >
             <Pencil className="w-4 h-4" />
           </Button>
 
           <Button
             variant="ghost"
-            size="sm"
+            size="icon"
             onClick={handleDelete}
             disabled={isPending}
-            className="text-muted-foreground hover:text-red-600"
+            className="w-10 h-10 text-[#71717a] hover:text-red-500 hover:bg-white/5 rounded-none"
           >
             <Trash2 className="w-4 h-4" />
           </Button>

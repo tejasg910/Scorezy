@@ -26,11 +26,13 @@ export function AddClassRoomDialog() {
 
   return (
     <Dialog>
-      <DialogTrigger >
-        <Button>Add Class Room</Button>
-      </DialogTrigger>
+      <DialogTrigger 
+        render={
+          <Button variant="luxury">Add Class Room</Button>
+        }
+      />
 
-      <DialogContent>
+      <DialogContent className="border-white/10 bg-[#0a0a0f] text-[#f0eeff]">
         <DialogHeader>
           <DialogTitle>Create New Class Room</DialogTitle>
         </DialogHeader>
@@ -45,9 +47,10 @@ export function AddClassRoomDialog() {
             name="name"
             placeholder="Classroom name"
             required
+            className="bg-white/5 border-white/10 text-[#f0eeff] h-12 focus:border-[#8b5cf6]/50 transition-all"
           />
 
-          <Button type="submit" disabled={pending} className="w-full">
+          <Button type="submit" variant="luxury" disabled={pending} className="w-full  text-base">
             {pending ? "Creating..." : "Create Class Room"}
           </Button>
 

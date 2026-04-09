@@ -32,9 +32,9 @@ export function QuizEditor({
 
   return (
     <>
-      {/* Add Button */}
-      <div className="mb-8">
-        <Button onClick={handleAdd} size="lg" className="bg-primary hover:bg-primary/90">
+      {/* Add Button Area */}
+      <div className="flex flex-col sm:flex-row items-center gap-4 mb-10">
+        <Button onClick={handleAdd} variant="luxury" size="lg" className="w-full sm:w-auto px-8 h-14">
           + Add Question
         </Button>
         <BulkAddQuestionsDialog quizId={quizId} />
@@ -56,10 +56,15 @@ export function QuizEditor({
 
       {/* Empty State */}
       {questions.length === 0 && (
-        <Card className="border-dashed border-2 border-border py-20 bg-background/50">
-          <CardContent className="text-center">
-            <p className="text-muted-foreground text-lg">No questions yet</p>
-            <p className="text-muted-foreground/60 mt-1">Add your first question to get started</p>
+        <Card className="border-white/5 border-dashed border-2 bg-[#15151e] py-24 rounded-none">
+          <CardContent className="text-center space-y-4">
+            <div className="text-5xl opacity-40 grayscale group-hover:grayscale-0 transition-all">🏗️</div>
+            <div className="space-y-1">
+              <p className="text-[#f0eeff] text-xl font-heading font-bold">No questions yet</p>
+              <p className="text-[#71717a] text-sm max-w-xs mx-auto">
+                Your assessment vault is empty. Add your first digital question to begin.
+              </p>
+            </div>
           </CardContent>
         </Card>
       )}

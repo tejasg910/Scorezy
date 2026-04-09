@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { classrooms } from "@/db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, and } from "drizzle-orm";
-import { ClassroomState } from "../../../types/classroom";
+import { ClassroomState } from "../../types/classroom";
 
 export async function createClassroom(
   prevState: ClassroomState,

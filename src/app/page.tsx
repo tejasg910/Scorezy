@@ -79,8 +79,7 @@ export default function Home() {
               <motion.button 
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-56 h-14 bg-[#8b5cf6] hover:bg-[#a78bfa] text-white text-base font-bold tracking-wider transition-all"
-                style={{ clipPath: "polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)" }}
+                className="w-56 h-14 bg-[#8b5cf6] hover:bg-[#a78bfa] text-white text-base font-bold tracking-wider transition-all rounded-none"
               >
                 Start for Free →
               </motion.button>

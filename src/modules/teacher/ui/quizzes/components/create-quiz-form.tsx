@@ -20,7 +20,7 @@ import type { Quiz } from "@/modules/teacher/types/quiz";
 type Props = {
   classroomId: string;
   editingQuiz?: Quiz | null;
-  trigger?: React.ReactNode;
+  trigger?: React.ReactElement;
 };
 
 export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) {
@@ -36,16 +36,22 @@ export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {trigger ? (
-        <DialogTrigger >{trigger}</DialogTrigger>
+        <DialogTrigger render={trigger} />
       ) : (
-        <DialogTrigger>
-          <Button>{editingQuiz ? "Edit Quiz" : "Create New Quiz"}</Button>
-        </DialogTrigger>
+        <DialogTrigger
+          render={
+            <Button variant="luxury">
+              {editingQuiz ? "Edit Quiz" : "Create New Quiz"}
+            </Button>
+          }
+        />
       )}
 
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md border-white/10 bg-[#0a0a0f] text-[#f0eeff] rounded-none shadow-2xl">
         <DialogHeader>
-          <DialogTitle>{editingQuiz ? "Edit Quiz" : "Create New Quiz"}</DialogTitle>
+          <DialogTitle className="font-heading text-2xl font-bold tracking-tight">
+            {editingQuiz ? "Edit Quiz" : "Create New Quiz"}
+          </DialogTitle>
         </DialogHeader>
 
         <form action={action} className="space-y-5">
@@ -54,42 +60,44 @@ export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) 
           <input type="hidden" name="teacherId" value={data?.user?.id || ""} />
 
           <div className="space-y-2">
-            <Label>Quiz Title</Label>
+            <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Quiz Title</Label>
             <Input
               name="title"
               defaultValue={editingQuiz?.title}
               placeholder="Enter quiz title"
               required
+              className="bg-white/5 border-white/10 text-[#f0eeff] h-12 focus:border-[#8b5cf6]/50 rounded-none transition-all"
             />
           </div>
 
           <div className="space-y-2">
-            <Label>Description</Label>
+            <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Description</Label>
             <Textarea
               name="description"
               defaultValue={editingQuiz?.description || ""}
               placeholder="Short description (optional)"
               rows={3}
+              className="bg-white/5 border-white/10 text-[#f0eeff] focus:border-[#8b5cf6]/50 rounded-none transition-all"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Status</Label>
+              <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Status</Label>
               <Select name="status" defaultValue={editingQuiz?.status || "draft"}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-white/5 border-white/10 text-[#f0eeff] h-12 rounded-none">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="draft">Draft</SelectItem>
-                  <SelectItem value="published">Published</SelectItem>
-                  <SelectItem value="closed">Closed</SelectItem>
+                <SelectContent className="bg-[#15151e] border-white/10 text-[#f0eeff] rounded-none">
+                  <SelectItem value="draft" className="focus:bg-white/5">Draft</SelectItem>
+                  <SelectItem value="published" className="focus:bg-white/5">Published</SelectItem>
+                  <SelectItem value="closed" className="focus:bg-white/5">Closed</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label>Time Limit (minutes)</Label>
+              <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Time (mins)</Label>
               <Input
                 name="timeLimit"
                 type="number"
@@ -98,12 +106,13 @@ export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) 
                 min={1}
                 max={180}
                 required
+                className="bg-white/5 border-white/10 text-[#f0eeff] h-12 focus:border-[#8b5cf6]/50 rounded-none transition-all"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label>Passing Marks</Label>
+            <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Passing Marks</Label>
             <Input
               name="passingMarks"
               type="number"
@@ -111,10 +120,11 @@ export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) 
               placeholder="e.g. 60"
               min={0}
               required
+              className="bg-white/5 border-white/10 text-[#f0eeff] h-12 focus:border-[#8b5cf6]/50 rounded-none transition-all"
             />
           </div>
 
-          <Button type="submit" disabled={pending} className="w-full">
+          <Button type="submit" variant="luxury" disabled={pending} className="w-full h-12 text-base">
             {pending 
               ? (editingQuiz ? "Updating..." : "Creating...") 
               : (editingQuiz ? "Update Quiz" : "Create Quiz")

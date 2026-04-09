@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, XCircle, Clock } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export function AttemptDetailsUI({ attempt }: { attempt: any }) {
@@ -16,144 +17,168 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
   const q = attempt.questions[currentIndex];
 
   return (
-    <div className="p-6 pt-32 min-h-screen bg-background text-foreground">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className="p-6 pt-32 lg:pt-20 min-h-screen bg-[#0a0a0f]">
+      <div className="max-w-5xl mx-auto space-y-12">
         
-        {/* Header Summary */}
-        <div className="bg-card border border-border rounded-[var(--radius)] p-6 shadow-none flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">{attempt.quizTitle}</h1>
-            <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
-               <Clock className="w-4 h-4" />
-               Submitted: {attempt.submittedAt ? attempt.submittedAt.toLocaleString() : "Not submitted"}
-            </div>
-          </div>
-          <div className="flex items-center gap-4 bg-muted p-4 rounded-[var(--radius)] border border-border">
-            <div className="mr-4">
-              <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Your Score</p>
-              <p className="text-3xl font-bold text-foreground">{attempt.score} <span className="text-lg font-normal text-muted-foreground">/ {attempt.total}</span></p>
-            </div>
-            {isSubmitted && (
-               passed ? (
-                 <Badge className="bg-green-500/10 text-green-500 hover:bg-green-500/20 text-sm py-1 px-3 border-none">Passed</Badge>
-               ) : (
-                 <Badge className="bg-red-500/10 text-red-500 hover:bg-red-500/20 text-sm py-1 px-3 border-none">Failed</Badge>
-               )
-            )}
-          </div>
-        </div>
-
-        {/* Navigation Dots for Quick Access */}
-        <div className="flex flex-wrap gap-1.5 justify-center py-2">
-            {attempt.questions.map((que: any, idx: number) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`w-7 h-7 rounded-[var(--radius)] border text-[10px] font-bold transition-all ${
-                  currentIndex === idx 
-                    ? "bg-primary border-primary text-primary-foreground scale-110 shadow-sm" 
-                    : que.isCorrect
-                    ? "bg-green-500/10 border-green-500/20 text-green-500 hover:bg-green-500/20"
-                    : "bg-red-500/10 border-red-500/20 text-red-500 hover:bg-red-500/20"
-                }`}
-              >
-                {idx + 1}
-              </button>
-            ))}
-        </div>
-
-        {/* Action Bar */}
-        <div className="flex justify-between items-center">
-           <h2 className="text-xl font-semibold text-foreground">Detailed Results <span className="text-sm font-normal text-muted-foreground">(Q{currentIndex + 1})</span></h2>
-           <Link href="/student/scores">
-             <Button variant="outline">Back to Scores</Button>
-           </Link>
-        </div>
-
-        {/* Questions Display */}
-        <div className="space-y-6">
-          {q && (
-            <Card key={q.id}>
-              <div className={`px-6 py-4 border-b border-border flex justify-between items-center rounded-t-[var(--radius)] ${q.isCorrect ? 'bg-green-500/5' : 'bg-red-500/5'}`}>
-                 <span className="text-sm font-semibold text-muted-foreground uppercase tracking-tight">Question {currentIndex + 1}</span>
-                 {q.isCorrect ? (
-                   <span className="flex items-center text-sm font-bold text-green-500">
-                     <CheckCircle2 className="w-4 h-4 mr-1" /> Correct (+{q.marks})
-                   </span>
-                 ) : (
-                   <span className="flex items-center text-sm font-bold text-red-500">
-                     <XCircle className="w-4 h-4 mr-1" /> Incorrect (0/{q.marks})
-                   </span>
-                 )}
-              </div>
-              <CardContent className="pt-8 px-8 pb-10">
-                <h3 className="text-xl font-medium text-foreground leading-relaxed mb-8">{q.body}</h3>
-                
-                <div className="space-y-3">
-                  {q.options.map((opt: any) => {
-                    const isUserSelection = q.userAnswer === opt.id;
-                    const isCorrectOption = opt.isCorrect;
-                    
-                    let borderColor = "border-border";
-                    let bgColor = "bg-muted/10";
-                    let icon = null;
-                    let dotColor = "border-muted";
-
-                    if (isCorrectOption) {
-                      borderColor = "border-green-500";
-                      bgColor = "bg-green-500/10";
-                      icon = <CheckCircle2 className="w-5 h-5 text-green-500" />;
-                    } else if (isUserSelection && !isCorrectOption) {
-                      borderColor = "border-red-500";
-                      bgColor = "bg-red-500/10";
-                      icon = <XCircle className="w-5 h-5 text-red-500" />;
-                    } else if (isUserSelection) {
-                       borderColor = "border-primary shadow-none";
-                       dotColor = "border-primary";
-                    }
-
-                    return (
-                      <div key={opt.id} className={`flex items-center justify-between space-x-3 p-4 rounded-[var(--radius)] border-2 transition-all ${borderColor} ${bgColor}`}>
-                        <div className="flex items-center space-x-4">
-                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                             isUserSelection ? 'border-primary bg-primary' : dotColor
-                           }`}>
-                             {isUserSelection && <div className="w-1.5 h-1.5 rounded-full bg-primary-foreground" />}
-                           </div>
-                           <Label className="flex-1 text-base font-medium text-foreground">{opt.text}</Label>
-                        </div>
-                        {icon}
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Pagination Buttons */}
-          <div className="flex justify-between items-center py-4">
-             <Button
-               variant="outline"
-               onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
-               disabled={currentIndex === 0}
-               className="w-32"
-             >
-               Previous
-             </Button>
-             
-             <div className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-                Question {currentIndex + 1} of {attempt.questions.length}
+        {/* Header Summary (Premium Report Design) */}
+        <div className="bg-[#15151e] border border-white/5 rounded-none p-10 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#8b5cf6]/5 rounded-full blur-[100px] -mr-32 -mt-32" />
+          
+          <div className="relative z-10 flex-1 space-y-4">
+             <div className="flex items-center gap-3">
+               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8b5cf6]">Final Performance Archive</span>
+               <div className="h-px flex-1 bg-white/5" />
              </div>
+             <h1 className="text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-[#f0eeff] leading-none">
+               {attempt.quizTitle}
+             </h1>
+             <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-[#71717a]">
+                <Clock className="w-3.5 h-3.5" />
+                Vault Locked: {attempt.submittedAt ? attempt.submittedAt.toLocaleString() : "Not submitted"}
+             </div>
+          </div>
 
-             <Button
-               variant="outline"
-               onClick={() => setCurrentIndex(Math.min(attempt.questions.length - 1, currentIndex + 1))}
-               disabled={currentIndex === attempt.questions.length - 1}
-               className="w-32"
-             >
-               Next
-             </Button>
+          <div className="relative z-10 flex flex-col items-center gap-4 p-8 bg-white/5 border border-white/5 min-w-[200px]">
+             <div className="text-center">
+               <p className="text-[10px] text-[#71717a] font-bold uppercase tracking-[0.2em] mb-2">Efficiency Rating</p>
+               <p className="text-5xl font-heading font-extrabold text-[#f0eeff]">
+                 {attempt.score} <span className="text-lg font-bold text-[#71717a] uppercase">/ {attempt.total}</span>
+               </p>
+             </div>
+             {isSubmitted && (
+                passed ? (
+                  <div className="px-4 py-1.5 bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-[0.2em]">Authorized / Pass</div>
+                ) : (
+                  <div className="px-4 py-1.5 bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-[0.2em]">Restricted / Fail</div>
+                )
+             )}
+          </div>
+        </div>
+
+        {/* Evaluation Navigation */}
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center bg-white/5 border-b border-white/5 p-6 rounded-none">
+             <h2 className="text-xl font-heading font-bold text-[#f0eeff] uppercase tracking-wider">Evaluation Log</h2>
+             <div className="flex flex-wrap gap-2.5 justify-center mt-4 sm:mt-0">
+                {attempt.questions.map((que: any, idx: number) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentIndex(idx)}
+                    className={cn(
+                      "w-10 h-10 border transition-all duration-300 font-heading font-bold text-sm",
+                      currentIndex === idx 
+                        ? "bg-[#8b5cf6] border-[#8b5cf6] text-white shadow-[0_0_15px_rgba(139,92,246,0.2)] scale-110" 
+                        : que.isCorrect
+                        ? "bg-green-500/5 border-green-500/10 text-green-500/60 hover:border-green-500/30"
+                        : "bg-red-500/5 border-red-500/10 text-red-400/60 hover:border-red-500/30"
+                    )}
+                  >
+                    {String(idx + 1).padStart(2, '0')}
+                  </button>
+                ))}
+             </div>
+          </div>
+
+          {/* Assessment Breakdown */}
+          <div className="grid grid-cols-1 gap-10">
+            {q && (
+              <Card key={q.id} className="border-white/5 bg-[#15151e] rounded-none overflow-hidden shadow-2xl">
+                <div className={cn(
+                  "px-8 py-4 border-b border-white/5 flex justify-between items-center",
+                  q.isCorrect ? 'bg-green-500/5' : 'bg-red-500/5'
+                )}>
+                   <span className="text-[10px] font-bold text-[#71717a] uppercase tracking-[0.2em]">Module {currentIndex + 1} Assessment</span>
+                   {q.isCorrect ? (
+                     <div className="px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-500 text-[10px] font-bold uppercase tracking-widest">
+                        Perfect Capture (+{q.marks} Marks)
+                     </div>
+                   ) : (
+                     <div className="px-3 py-1 bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest">
+                        System Misalignment (0/{q.marks} Marks)
+                     </div>
+                   )}
+                </div>
+                <CardContent className="pt-12 px-10 pb-12">
+                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-[#f0eeff] leading-tight mb-12">
+                    {q.body}
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {q.options.map((opt: any) => {
+                      const isUserSelection = q.userAnswer === opt.id;
+                      const isCorrectOption = opt.isCorrect;
+                      
+                      let variantStyle = "border-white/5 bg-white/5 text-[#a1a1aa]";
+                      let statusText = null;
+
+                      if (isCorrectOption) {
+                        variantStyle = "border-green-500/50 bg-green-500/10 text-white";
+                        statusText = "Correct Protocol";
+                      } else if (isUserSelection && !isCorrectOption) {
+                        variantStyle = "border-red-500/50 bg-red-500/10 text-white";
+                        statusText = "Selected Fault";
+                      } else if (isUserSelection) {
+                         variantStyle = "border-[#8b5cf6]/50 bg-[#8b5cf6]/10 text-white";
+                      }
+
+                      return (
+                        <div key={opt.id} className={cn(
+                          "flex items-center justify-between p-6 rounded-none border-2 transition-all group",
+                          variantStyle
+                        )}>
+                          <div className="flex items-center space-x-4">
+                             <div className={cn(
+                               "w-6 h-6 border-2 flex items-center justify-center transition-all",
+                               isUserSelection ? 'border-[#8b5cf6] bg-[#8b5cf6]' : 'border-[#71717a]'
+                             )}>
+                               {isUserSelection && <div className="w-2 h-2 bg-white" />}
+                             </div>
+                             <Label className="flex-1 text-lg font-medium cursor-default">{opt.text}</Label>
+                          </div>
+                          {statusText && (
+                            <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">{statusText}</span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Navigation Control Bar */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-4">
+               <Button
+                 variant="outline"
+                 size="lg"
+                 onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
+                 disabled={currentIndex === 0}
+                 className="w-full sm:w-48 h-14 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] transition-all font-heading font-bold tracking-widest uppercase"
+               >
+                 Previous
+               </Button>
+               
+               <div className="text-[10px] font-bold text-[#71717a] uppercase tracking-[0.3em] order-3 sm:order-2">
+                  Module {currentIndex + 1} <span className="mx-2">/</span> {attempt.questions.length}
+               </div>
+
+               <div className="w-full sm:w-48 order-2 sm:order-3 flex gap-2">
+                 <Button
+                   variant="outline"
+                   size="lg"
+                   onClick={() => setCurrentIndex(Math.min(attempt.questions.length - 1, currentIndex + 1))}
+                   disabled={currentIndex === attempt.questions.length - 1}
+                   className="flex-1 h-14 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] transition-all font-heading font-bold tracking-widest uppercase"
+                 >
+                   Next
+                 </Button>
+                  <Button variant="luxury" size="icon" className="h-14 w-14">
+                    <Link href="/student/scores">
+                      <XCircle className="w-5 h-5" />
+                    </Link>
+                  </Button>
+               </div>
+            </div>
           </div>
         </div>
         

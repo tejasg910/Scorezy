@@ -62,9 +62,9 @@ export function ResubscribeButton({ label }: { label: string }) {
     <form action={action}>
       <Button 
         type="submit"
+        variant="luxury"
         disabled={isPending}
-        className="bg-[#8b5cf6] hover:bg-[#a78bfa] text-white px-6 py-7 font-heading font-bold tracking-widest w-full transition-all active:scale-[0.98] text-base"
-        style={{ clipPath: "polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%)" }}
+        className="px-6 py-7 w-full text-base"
       >
         {isPending ? "Resubscribing..." : label}
       </Button>
@@ -79,9 +79,9 @@ export function StartCheckoutButton() {
     <form action={action}>
       <Button 
         type="submit"
+        variant="luxury"
         disabled={isPending}
-        className="bg-[#8b5cf6] hover:bg-[#a78bfa] text-white px-6 py-7 font-heading font-bold tracking-widest w-full transition-all active:scale-[0.98] text-base"
-        style={{ clipPath: "polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%)" }}
+        className="px-6 py-7 w-full text-base"
       >
         {isPending ? "Redirecting..." : "Start Pro"}
       </Button>
@@ -96,9 +96,9 @@ export function ManageBillingButton() {
     <form action={action} className="w-full">
       <Button 
         type="submit"
+        variant="outline"
         disabled={isPending}
-        className="bg-white/5 hover:bg-white/10 text-[#f0eeff] border border-white/10 px-6 py-7 font-heading font-bold tracking-widest w-full transition-all active:scale-[0.98] text-base"
-        style={{ clipPath: "polygon(16px 0%, 100% 0%, calc(100% - 16px) 100%, 0% 100%)" }}
+        className="border-white/10 text-[#f0eeff] hover:bg-white/5 px-6 py-7 font-heading font-bold tracking-widest w-full transition-all rounded-none active:scale-[0.98] text-base"
       >
         {isPending ? "Opening Portal..." : "Manage Billing"}
       </Button>

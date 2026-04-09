@@ -5,6 +5,7 @@ import { useTestStore } from "../../store/use-test-store";
 import { submitAttempt } from "../../server/actions/quiz.actions";
 import { useRouter } from "next/navigation";
 import Countdown from "react-countdown";
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -81,17 +82,23 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
   const currentQuestion = quiz.questions[store.currentQuestionIndex];
 
   return (
-    <div className="space-y-6">
-      {/* Sticky Header with Timer */}
-      <div className="sticky top-16 z-40 bg-background/80 backdrop-blur border-b border-border shadow-sm -mt-6 -mx-6 p-4 px-6 md:px-10 flex justify-between items-center">
-        <div className="flex-1">
-          <h2 className="text-xl font-bold truncate max-w-[200px] md:max-w-none text-foreground">{quiz.title}</h2>
-          <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
-             <span className="font-medium text-primary">Question {store.currentQuestionIndex + 1}</span> of {quiz.questions.length}
+    <div className="space-y-12">
+      {/* Premium Header with Luxury Timer */}
+      <div className="sticky top-16 z-40 bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5 -mt-6 -mx-6 p-6 px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex-1 space-y-1">
+          <h2 className="text-2xl font-heading font-extrabold tracking-tight text-[#f0eeff] truncate max-w-[300px] md:max-w-none">
+            {quiz.title}
+          </h2>
+          <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#71717a]">
+             <span className="text-[#8b5cf6]">Question {store.currentQuestionIndex + 1}</span> 
+             <span className="w-1 h-1 rounded-full bg-white/10" />
+             <span>Total {quiz.questions.length}</span>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="bg-muted px-4 py-2 border border-border rounded-[var(--radius)] min-w-[80px] text-center">
+        
+        <div className="flex items-center gap-6">
+          <div className="bg-white/5 px-6 py-3 border border-white/10 rounded-none min-w-[120px] text-center shadow-inner">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-[#71717a] mb-1">Time Remaining</div>
             {initialTimeRemaining > 0 ? (
                <Countdown 
                  date={targetDate} 
@@ -99,7 +106,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                  onComplete={handleTimeUp} 
                />
             ) : (
-               <span className="text-muted-foreground font-mono">Untimed</span>
+               <span className="text-[#a1a1aa] font-heading font-bold">Untimed</span>
             )}
           </div>
           <Button 
@@ -107,67 +114,80 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
               if (confirm("Are you sure you want to submit?")) handleSubmit();
             }}
             disabled={store.isSubmitting}
-            variant={store.currentQuestionIndex === quiz.questions.length - 1 ? "default" : "outline"}
-            className={store.currentQuestionIndex === quiz.questions.length - 1 ? "bg-green-600 hover:bg-green-700 text-white" : ""}
+            variant="outline"
+            className="rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 h-12 px-6"
           >
             {store.isSubmitting && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-            {store.currentQuestionIndex === quiz.questions.length - 1 ? "Finish & Submit" : "Submit Early"}
+            Submit Early
           </Button>
         </div>
       </div>
 
-      <div className="pb-10 max-w-3xl mx-auto">
-        {/* Navigation Indicator Dots */}
-        <div className="flex flex-wrap gap-2 mb-8 justify-center">
+      <div className="pb-20 max-w-4xl mx-auto space-y-10">
+        {/* Navigation Indicator Blocks (Squared) */}
+        <div className="flex flex-wrap gap-2.5 justify-center">
             {quiz.questions.map((_: any, idx: number) => (
               <button
                 key={idx}
                 onClick={() => store.setCurrentQuestionIndex(idx)}
-                className={`w-8 h-8 rounded-full border text-xs font-bold transition-all ${
+                className={cn(
+                  "w-10 h-10 border transition-all duration-300 font-heading font-bold text-sm",
                   store.currentQuestionIndex === idx 
-                    ? "bg-primary border-primary text-primary-foreground scale-110" 
+                    ? "bg-[#8b5cf6] border-[#8b5cf6] text-white shadow-[0_0_15px_rgba(139,92,246,0.3)] scale-110" 
                     : store.answers[quiz.questions[idx].id]
-                    ? "bg-primary/20 border-primary/40 text-primary"
-                    : "bg-background text-muted-foreground hover:border-muted-foreground"
-                }`}
+                    ? "bg-[#8b5cf6]/20 border-[#8b5cf6]/40 text-[#b18aff]"
+                    : "bg-white/5 border-white/10 text-[#71717a] hover:border-[#a1a1aa] hover:text-[#f0eeff]"
+                )}
               >
-                {idx + 1}
+                {String(idx + 1).padStart(2, '0')}
               </button>
             ))}
         </div>
 
         {currentQuestion && (
-          <Card key={currentQuestion.id} className="border-border shadow-none">
-            <div className="bg-muted/30 px-6 py-4 border-b border-border flex justify-between items-center rounded-t-[var(--radius)]">
-               <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">Question {store.currentQuestionIndex + 1}</span>
-               <Badge variant="outline" className="bg-background">{currentQuestion.marks} Marks</Badge>
+          <Card key={currentQuestion.id} className="border-white/5 bg-[#15151e] rounded-none overflow-hidden shadow-2xl">
+            <div className="bg-white/5 px-8 py-4 border-b border-white/5 flex justify-between items-center">
+               <span className="text-[10px] font-bold text-[#71717a] uppercase tracking-[0.2em]">Section Assessment</span>
+               <div className="px-3 py-1 bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 text-[#b18aff] text-[10px] font-bold uppercase tracking-widest">
+                 {currentQuestion.marks} Marks
+               </div>
             </div>
-            <CardContent className="pt-8 px-8 pb-10">
-              <h3 className="text-xl font-medium text-foreground leading-relaxed mb-8">{currentQuestion.body}</h3>
+            <CardContent className="pt-12 px-10 pb-12">
+              <h3 className="text-2xl md:text-3xl font-heading font-bold text-[#f0eeff] leading-tight mb-12">
+                {currentQuestion.body}
+              </h3>
               
               <RadioGroup 
                 value={store.answers[currentQuestion.id] || ""} 
                 onValueChange={(val) => store.setAnswer(currentQuestion.id, val)}
                 disabled={store.isSubmitting}
-                className="space-y-4"
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
               >
                 {currentQuestion.options.map((opt: any) => (
                   <div 
                     key={opt.id} 
-                    className={`flex items-center space-x-3 p-4 rounded-[var(--radius)] border-2 transition-all cursor-pointer ${
+                    className={cn(
+                      "flex items-center space-x-4 p-6 rounded-none border-2 transition-all duration-300 cursor-pointer group",
                       store.answers[currentQuestion.id] === opt.id 
-                        ? "border-primary bg-primary/10 shadow-sm" 
-                        : "border-border hover:border-muted-foreground hover:bg-muted/20"
-                    }`}
+                        ? "border-[#8b5cf6] bg-[#8b5cf6]/10 shadow-[0_0_20px_rgba(139,92,246,0.1)]" 
+                        : "border-white/5 hover:border-white/20 hover:bg-white/5"
+                    )}
                     onClick={() => !store.isSubmitting && store.setAnswer(currentQuestion.id, opt.id)}
                   >
                     <RadioGroupItem value={opt.id} id={`opt-${opt.id}`} className="hidden" />
-                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                      store.answers[currentQuestion.id] === opt.id ? "border-primary bg-primary" : "border-muted"
-                    }`}>
-                      {store.answers[currentQuestion.id] === opt.id && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                    <div className={cn(
+                      "w-6 h-6 rounded-none border-2 flex items-center justify-center transition-all",
+                      store.answers[currentQuestion.id] === opt.id 
+                        ? "border-[#8b5cf6] bg-[#8b5cf6]" 
+                        : "border-[#71717a] group-hover:border-[#a1a1aa]"
+                    )}>
+                      {store.answers[currentQuestion.id] === opt.id && (
+                        <div className="w-2 h-2 bg-white" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }} />
+                      )}
                     </div>
-                    <Label htmlFor={`opt-${opt.id}`} className="flex-1 cursor-pointer text-base font-medium text-foreground">{opt.text}</Label>
+                    <Label htmlFor={`opt-${opt.id}`} className="flex-1 cursor-pointer text-lg font-medium text-[#f0eeff] transition-colors group-hover:text-white">
+                      {opt.text}
+                    </Label>
                   </div>
                 ))}
               </RadioGroup>
@@ -175,43 +195,47 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
           </Card>
         )}
 
-        {/* Next/Prev Navigation */}
-        <div className="flex justify-between items-center mt-8">
+        {/* Navigation Control Bar */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-4">
             <Button
               variant="outline"
               size="lg"
               onClick={() => store.setCurrentQuestionIndex(Math.max(0, store.currentQuestionIndex - 1))}
               disabled={store.currentQuestionIndex === 0 || store.isSubmitting}
-              className="px-8"
+              className="w-full sm:w-48 h-14 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] transition-all font-heading font-bold tracking-widest uppercase"
             >
               Previous
             </Button>
             
-            <div className="text-sm text-gray-500 font-medium">
-               Step {store.currentQuestionIndex + 1} of {quiz.questions.length}
+            <div className="text-[10px] font-bold text-[#71717a] uppercase tracking-[0.3em] order-3 sm:order-2">
+               Question {store.currentQuestionIndex + 1} <span className="mx-2">/</span> {quiz.questions.length}
             </div>
 
-            {store.currentQuestionIndex < quiz.questions.length - 1 ? (
-              <Button
-                size="lg"
-                onClick={() => store.setCurrentQuestionIndex(store.currentQuestionIndex + 1)}
-                disabled={store.isSubmitting}
-                className="px-8 bg-blue-600 hover:bg-blue-700"
-              >
-                Next
-              </Button>
-            ) : (
-                <Button 
-                    size="lg"
-                    onClick={() => {
-                    if (confirm("Are you sure you want to finish and submit the test?")) handleSubmit();
-                    }}
-                    disabled={store.isSubmitting}
-                    className="px-8 bg-green-600 hover:bg-green-700"
+            <div className="w-full sm:w-48 order-2 sm:order-3">
+              {store.currentQuestionIndex < quiz.questions.length - 1 ? (
+                <Button
+                  variant="luxury"
+                  size="lg"
+                  onClick={() => store.setCurrentQuestionIndex(store.currentQuestionIndex + 1)}
+                  disabled={store.isSubmitting}
+                  className="w-full h-14"
                 >
-                    Finish Test
+                  Next Question
                 </Button>
-            )}
+              ) : (
+                <Button 
+                  variant="luxury"
+                  size="lg"
+                  onClick={() => {
+                    if (confirm("Are you sure you want to finish and submit the test?")) handleSubmit();
+                  }}
+                  disabled={store.isSubmitting}
+                  className="w-full h-14 bg-green-600 hover:bg-green-500"
+                >
+                  Finish Test
+                </Button>
+              )}
+            </div>
         </div>
       </div>
     </div>

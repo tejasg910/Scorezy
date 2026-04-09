@@ -2,19 +2,17 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { SignOutButton } from "@/components/sign-out-button"
 import { useSession } from "@/lib/auth-client"
-import { motion } from "framer-motion"
+import { SignOutButton } from "@/components/sign-out-button"
+import { Button } from "@/components/ui/button"
 
 export function Header() {
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
-  console.log(session, "This is session")
   const isHome = pathname === "/";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/10 bg-[#0a0a0f]/80 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-md">
       <div className="container mx-auto flex h-20 items-center justify-between px-6 md:px-12">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -30,7 +28,7 @@ export function Header() {
               <Link
                 key={item}
                 href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-                className="text-sm font-medium tracking-wide text-[#a1a1aa] transition-colors hover:text-[#f0eeff]"
+                className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#71717a] transition-all hover:text-[#f0eeff] hover:tracking-[0.25em]"
               >
                 {item}
               </Link>
@@ -39,30 +37,28 @@ export function Header() {
         )}
 
         {/* Auth Buttons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           {(!isPending && !session) ? (
             <>
-              <Link href="/auth/sign-in" className="text-sm font-semibold text-[#a1a1aa] hover:text-[#f0eeff] transition-colors">
-                Sign In
+              <Link href="/auth/sign-in" className="text-[10px] font-bold uppercase tracking-widest text-[#71717a] hover:text-[#f0eeff] transition-colors">
+                Personal Access
               </Link>
               <Link href="/auth/sign-up">
-                <motion.button
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="bg-[#8b5cf6] hover:bg-[#a78bfa] text-white px-5 py-2.5 font-heading text-sm font-bold tracking-wider transition-all"
-                  style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
+                <Button
+                  variant="luxury"
+                  className="h-11 px-6 text-[10px] font-bold tracking-[0.2em] uppercase"
                 >
-                  Get Started Free
-                </motion.button>
+                  Initialize Identity
+                </Button>
               </Link>
             </>
           ) : session && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-6">
               <Link
                 href={session.user.role === "teacher" ? "/teacher/dashboard" : "/student/dashboard"}
-                className="text-sm font-semibold text-[#a1a1aa] hover:text-[#f0eeff] transition-colors"
+                className="text-[10px] font-bold uppercase tracking-widest text-[#8b5cf6] hover:text-[#a78bfa] transition-colors"
               >
-                {session.user.role === "teacher" ? "Teacher Dashboard" : "Student Dashboard"}
+                Access {session.user.role === "teacher" ? "Teacher" : "Student"} Vault
               </Link>
               <SignOutButton />
             </div>

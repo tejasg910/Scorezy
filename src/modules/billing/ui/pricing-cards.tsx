@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { startCheckout } from "../server/actions/billing.actions";
 import { useTransition } from "react";
+import { Button } from "@/components/ui/button";
 
 export function PricingCards() {
   return (
@@ -69,17 +69,16 @@ function PricingCard({ name, amount, period, feats, dimmedFeats = [], featured =
         {feats.map((f: string) => <li key={f} className="text-[0.9rem] text-[#a1a1aa] flex gap-3"><span className="text-[#b18aff] font-bold">✓</span> {f}</li>)}
         {dimmedFeats?.map((f: string) => <li key={f} className="text-[0.9rem] text-[#404040] flex gap-3"><span className="shrink-0">×</span> {f}</li>)}
       </ul>
-      <button 
+      <Button 
         onClick={handleAction}
         disabled={isPending}
-        className={`w-full py-4 text-[0.85rem] font-bold tracking-wider font-heading transition-all ${
-          featured 
-            ? 'bg-[#8b5cf6] hover:bg-[#a78bfa] text-white' 
-            : 'border border-white/10 text-[#71717a] hover:border-[#b18aff] hover:text-[#f0eeff]'
-        } disabled:opacity-50 disabled:cursor-not-allowed`}
+        variant={featured ? "luxury" : "outline"}
+        className={`w-full h-14 text-[0.85rem] font-bold tracking-wider font-heading uppercase ${
+          !featured ? 'border-white/10 text-[#71717a] hover:border-[#b18aff] hover:text-[#f0eeff]' : ''
+        }`}
       >
         {isPending ? "Redirecting..." : btnText}
-      </button>
+      </Button>
     </div>
   );
 }

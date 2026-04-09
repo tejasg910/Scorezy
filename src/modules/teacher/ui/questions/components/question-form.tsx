@@ -91,9 +91,9 @@ export function AddEditQuestionDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto border-white/10 bg-[#0a0a0f] text-[#f0eeff] rounded-none shadow-2xl">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="font-heading text-2xl font-bold tracking-tight">
             {editingQuestion ? "Edit Question" : "Add New Question"}
           </DialogTitle>
         </DialogHeader>
@@ -107,7 +107,7 @@ export function AddEditQuestionDialog({
 
           {/* Question Text */}
           <div className="space-y-2">
-            <Label>Question</Label>
+            <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Assessment Inquiry</Label>
             <Textarea
               name="body"
               value={body}
@@ -115,12 +115,13 @@ export function AddEditQuestionDialog({
               placeholder="Enter your question here..."
               required
               rows={3}
+              className="bg-white/5 border-white/5 text-[#f0eeff] focus:border-[#8b5cf6]/50 rounded-none transition-all text-lg font-medium"
             />
           </div>
 
           {/* Question Type */}
-          <div className="space-y-2">
-            <Label>Question Type</Label>
+          <div className="space-y-4">
+            <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Assessment Methodology</Label>
             <RadioGroup
               value={type}
               onValueChange={(v) => {
@@ -141,47 +142,54 @@ export function AddEditQuestionDialog({
                 }
               }}
               name="type"
-              className="flex gap-6"
+              className="flex flex-col sm:flex-row gap-6"
             >
-              <div className="flex items-center gap-2">
-                <RadioGroupItem value="mcq" id="mcq" />
-                <Label htmlFor="mcq">Multiple Choice (4 options)</Label>
+              <div className="flex items-center gap-3 p-4 border border-white/5 bg-white/5 group transition-all hover:border-[#8b5cf6]/50">
+                <RadioGroupItem value="mcq" id="mcq" className="border-[#71717a] text-[#8b5cf6]" />
+                <Label htmlFor="mcq" className="font-heading font-bold text-sm cursor-pointer">Multiple Choice</Label>
               </div>
-              <div className="flex items-center gap-2">
-                <RadioGroupItem value="true_false" id="tf" />
-                <Label htmlFor="tf">True / False</Label>
+              <div className="flex items-center gap-3 p-4 border border-white/5 bg-white/5 group transition-all hover:border-[#8b5cf6]/50">
+                <RadioGroupItem value="true_false" id="tf" className="border-[#71717a] text-[#8b5cf6]" />
+                <Label htmlFor="tf" className="font-heading font-bold text-sm cursor-pointer">True / False</Label>
               </div>
             </RadioGroup>
           </div>
 
           {/* Options */}
           <div className="space-y-4">
-            <Label>Options</Label>
-            {optionList.map((opt, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <input
-                  type="radio"
-                  name="correct"
-                  checked={opt.isCorrect}
-                  onChange={() => handleCorrectChange(index)}
-                  className="mt-1"
-                />
-                <Input
-                  value={opt.text}
-                  onChange={(e) => {
-                    const newList = [...optionList];
-                    newList[index].text = e.target.value;
-                    setOptionList(newList);
-                  }}
-                  placeholder={isMcq ? `Option ${index + 1}` : index === 0 ? "True" : "False"}
-                  required
-                />
-              </div>
-            ))}
+            <Label className="text-[10px] font-bold uppercase tracking-widest text-[#71717a]">Vault Options</Label>
+            <div className="grid grid-cols-1 gap-3">
+              {optionList.map((opt, index) => (
+                <div key={index} className="flex items-center gap-4 p-4 border border-white/5 bg-white/5">
+                  <div 
+                    onClick={() => handleCorrectChange(index)}
+                    className={`w-6 h-6 border-2 flex items-center justify-center cursor-pointer transition-all ${
+                      opt.isCorrect ? "border-[#8b5cf6] bg-[#8b5cf6]" : "border-[#71717a] hover:border-[#a1a1aa]"
+                    }`}
+                  >
+                    {opt.isCorrect && <div className="w-2 h-2 bg-white" />}
+                  </div>
+                  <Input
+                    value={opt.text}
+                    onChange={(e) => {
+                      const newList = [...optionList];
+                      newList[index].text = e.target.value;
+                      setOptionList(newList);
+                    }}
+                    placeholder={isMcq ? `Define Option ${index + 1}` : index === 0 ? "True" : "False"}
+                    required
+                    className="flex-1 bg-transparent border-none text-[#f0eeff] h-auto p-0 focus-visible:ring-0 placeholder:text-[#71717a]"
+                  />
+                  {opt.isCorrect && (
+                    <span className="text-[8px] font-bold uppercase tracking-widest text-[#8b5cf6]">Correct Key</span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
-          <Button type="submit" disabled={pending} className="w-full">
-            {pending ? "Saving..." : editingQuestion ? "Save Changes" : "Add Question"}
+          <Button type="submit" variant="luxury" disabled={pending} className="w-full h-14 text-lg">
+            {pending ? "Seal Question..." : editingQuestion ? "Update Assessment" : "Vault Question"}
           </Button>
 
           {state.error && <p className="text-sm text-red-500">{state.error}</p>}
