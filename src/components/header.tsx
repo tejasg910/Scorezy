@@ -10,7 +10,7 @@ import { motion } from "framer-motion"
 export function Header() {
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
-
+  console.log(session, "This is session")
   const isHome = pathname === "/";
 
   return (
@@ -58,7 +58,7 @@ export function Header() {
             </>
           ) : session && (
             <div className="flex items-center gap-4">
-              <Link 
+              <Link
                 href={session.user.role === "teacher" ? "/teacher/dashboard" : "/student/dashboard"}
                 className="text-sm font-semibold text-[#a1a1aa] hover:text-[#f0eeff] transition-colors"
               >

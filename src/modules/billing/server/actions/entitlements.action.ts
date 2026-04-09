@@ -1,12 +1,17 @@
 // lib/entitlements.ts
+"use server"
 import { db } from '@/db'
 import { user, classrooms, quizzes } from '@/db/schema'
 import { eq, count, gte, and } from 'drizzle-orm'
-import { PLANS, type Plan } from './plans'
+import { PLANS, type Plan } from '../../../../lib/plans'
+import { getSession } from '@/app/auth/lib/session'
 
-export async function getEntitlements(userId: string) {
+export async function getEntitlements() {
+  const session = await getSession();
+  if (!session) return null;
+
   const teacher = await db.query.user.findFirst({
-    where: eq(user.id, userId),
+    where: eq(user.id, session.user.id),
     columns: { plan: true, planExpiresAt: true }
   })
 
@@ -22,7 +27,7 @@ export async function getEntitlements(userId: string) {
   const [{ classroomCount }] = await db
     .select({ classroomCount: count() })
     .from(classrooms)
-    .where(eq(classrooms.teacherId, userId))
+    .where(eq(classrooms.teacherId, session.user.id))
 
   const monthStart = new Date()
   monthStart.setDate(1); monthStart.setHours(0,0,0,0)
@@ -32,7 +37,7 @@ export async function getEntitlements(userId: string) {
     .from(quizzes)
     .innerJoin(classrooms, eq(quizzes.classroomId, classrooms.id))
     .where(and(
-      eq(classrooms.teacherId, userId),
+      eq(classrooms.teacherId, session.user.id),
       gte(quizzes.createdAt, monthStart)
     ))
 

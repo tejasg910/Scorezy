@@ -8,6 +8,9 @@ export const user = pgTable("user", {
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
   role: text("role").default("student").notNull(),
+    plan: text("plan").default("free").notNull(),           // ← add
+  planExpiresAt: timestamp("plan_expires_at"),             // ← add
+  polarCustomerId: text("polar_customer_id"),  
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .defaultNow()

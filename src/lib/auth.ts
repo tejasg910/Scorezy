@@ -26,6 +26,14 @@ export const auth = betterAuth({
         defaultValue: "student",
         input: true,        // allow setting during sign-up
       },
+       plan: {
+        type: 'string',
+        defaultValue: 'free',
+      },
+      planExpiresAt: {
+        type: 'date',
+        required: false,
+      }
     },
   },
    plugins: [
