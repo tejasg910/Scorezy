@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="border-t border-white/10 px-6 md:px-12 py-12 text-center md:text-left bg-[#0a0a0f]">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="font-heading text-xl font-extrabold tracking-tighter text-[#f0eeff]">
-          score<span className="text-[#b18aff]">zy</span>
+          score<span className="text-[#b18aff]">zz</span>
         </div>
         <div className="flex gap-8">
           <Link href="#" className="text-[0.8rem] text-[#71717a] hover:text-[#f0eeff] transition-colors">Privacy</Link>
