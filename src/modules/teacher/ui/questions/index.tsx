@@ -1,20 +1,20 @@
 import { getQuestionsByQuiz } from "@/modules/teacher/server/actions/question/question.queries";
 
-import { QuizEditor } from "./components/question/question-detail";
+import { QuizEditor } from "./components/question-detail";
 import { getSession } from "@/app/auth/lib/session";
 import SignInPage from "@/modules/auth/components/sign-in/page";
 import { Pagination } from "@/components/pagination";
 
 export default async function QuizDetailPage({
-    quizId,
-    classroomId, 
-    currentPage, 
+  quizId,
+  classroomId,
+  currentPage,
 }: {
-    quizId: string,
-    classroomId: string,
-    currentPage:string
+  quizId: string,
+  classroomId: string,
+  currentPage: string
 }) {
-   const session = await getSession();
+  const session = await getSession();
   const userId = session?.user?.id;
 
   if (!userId) {
@@ -34,7 +34,7 @@ export default async function QuizDetailPage({
 
   const baseUrl = `/teacher/dashboard/${classroomId}/${quizId}`;
 
- return (
+  return (
     <div className="min-h-screen bg-background text-foreground p-6 pt-32 max-w-5xl mx-auto">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-foreground">Quiz Questions</h1>

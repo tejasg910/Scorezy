@@ -16,11 +16,10 @@ export function ClassroomCard({ classroom }: { classroom: Classroom }) {
           </h2>
 
           <span
-            className={`text-xs px-2 py-1 rounded-full ${
-              classroom.isActive
+            className={`text-xs px-2 py-1 rounded-full ${classroom.isActive
                 ? "bg-green-100/10 text-green-500"
                 : "bg-muted text-muted-foreground"
-            }`}
+              }`}
           >
             {classroom.isActive ? "Active" : "Inactive"}
           </span>
@@ -44,7 +43,7 @@ export function ClassroomCard({ classroom }: { classroom: Classroom }) {
         <div className="flex gap-2 pt-2">
           <ClassViewButton id={classroom.id} />
 
-       
+
         </div>
       </CardContent>
     </Card>

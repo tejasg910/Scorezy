@@ -1,42 +1,38 @@
 import { getSession } from "@/app/auth/lib/session";
-import { getClassrooms } from "../server/actions/classroom/classroom.queries";
-import { ClassroomList } from "./components/classes/class-list";
-
+import { getClassrooms } from "../../server/actions/classroom/classroom.queries";
+import { ClassroomList } from "./components/class-list";
+import { AddClassRoomDialog } from "./components/form-dialog";
 import SignInPage from "@/modules/auth/components/sign-in/page";
-import { getQuizzesByClassroom } from "../server/actions/quiz/quiz.queries";
-import { QuizList } from "./components/quizes/quiz-list";
-import { AddEditQuizDialog } from "./components/quizes/create-quiz-form";
 
-
-export default async function Quizzes({ id }: { id: string }) {
+export default async function CLassRoom() {
   const user = await getSession();
   if (!user) return <SignInPage />;
-  const quizData = await getQuizzesByClassroom(id);
-console.log(quizData, "tis si quiz data")
+  const classRoomData = await getClassrooms(user?.user.id);
+
   return (
     <div className="min-h-screen bg-background p-6 pt-32">
       <div className="max-w-6xl mx-auto space-y-6">
-        
+
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-foreground">
-              Quizzes
+              Classrooms
             </h1>
             <p className="text-sm text-muted-foreground">
-              Manage and organize your quizzes
+              Manage and organize your classrooms
             </p>
           </div>
 
           {/* keep your dialog here */}
           <div>
-          <AddEditQuizDialog classroomId={id} />
+            <AddClassRoomDialog />
           </div>
         </div>
 
         {/* Content */}
         <div>
-          <QuizList  quizzes={quizData}  />
+          <ClassroomList data={classRoomData} />
         </div>
 
       </div>
