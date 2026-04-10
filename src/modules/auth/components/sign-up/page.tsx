@@ -63,7 +63,7 @@ export default function SignUpPage() {
         </CardHeader>
 
         <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-6 px-10">
+          <CardContent className="space-y-6 px-6 md:px-10">
             {/* Role toggle - Premium Segmented Control */}
             <div className="grid grid-cols-2 p-1 bg-white/5 border border-white/5 rounded-none">
               {(["student", "teacher"] as const).map((r) => (
@@ -124,8 +124,8 @@ export default function SignUpPage() {
             )}
           </CardContent>
 
-          <CardFooter className="flex flex-col gap-6 p-10 pt-8 mt-4">
-            <Button type="submit" variant="luxury" className="w-full h-8 text-md" disabled={loading}>
+          <CardFooter className="flex flex-col gap-6 px-6 md:px-10 py-6 md:py-8 mt-4">
+            <Button type="submit" variant="luxury" className="w-full h-10 text-sm md:text-md" disabled={loading}>
               {loading ? "Initializing..." : "Register Infrastructure"}
             </Button>
             <div className="flex items-center gap-4 w-full">

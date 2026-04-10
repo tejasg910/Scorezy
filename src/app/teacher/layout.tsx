@@ -14,7 +14,7 @@ export default async function TeacherLayout({ children }: { children: React.Reac
     <div className="flex min-h-screen bg-[#0a0a0f]">
       <DashboardSidebar usageWidget={<SidebarUsageWidget />} />
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="pl-20 md:pl-64 transition-all duration-300">
+        <div className="pl-0 md:pl-64 transition-all duration-300 pb-20 md:pb-0">
           {children}
         </div>
       </div>
