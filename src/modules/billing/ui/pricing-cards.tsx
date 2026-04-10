@@ -21,6 +21,13 @@ export function PricingCards() {
         <PricingCard 
            name="Free"
            amount={0}
+           onAction={() => {
+            if(data?.user.role !== 'teacher') {
+              router.push('/auth/sign-in')
+            }else{
+              router.push('/teacher/dashboard')
+            }
+         }}
            period="Forever free"
            feats={["1 class", "Up to 30 students", "10 quizzes/month", "Basic analytics"]}
            dimmedFeats={["Export reports", "Priority support"]}
