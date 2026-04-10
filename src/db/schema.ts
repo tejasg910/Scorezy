@@ -67,6 +67,7 @@ export const classrooms = pgTable('classrooms', {
   name: text('name').notNull(),
   inviteCode: text('invite_code').notNull().unique(),
   isActive: boolean('is_active').notNull().default(true),
+  isPublic: boolean('is_public').notNull().default(false),
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 

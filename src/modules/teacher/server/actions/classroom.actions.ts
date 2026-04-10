@@ -13,6 +13,7 @@ export async function createClassroom(
 ): Promise<ClassroomState> {
   const name = (formData.get("name") as string)?.trim();
   const teacherId = formData.get("teacherId") as string;
+  const isPublic = formData.get("isPublic") === "on";
 
   if (!name) {
     return { error: "Classroom name is required" };
@@ -50,6 +51,7 @@ export async function createClassroom(
       teacherId,
       inviteCode: crypto.randomUUID().slice(0, 8).toUpperCase(),
       isActive: true,
+      isPublic,
     });
 
     revalidatePath("/teacher/dashboard");

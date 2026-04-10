@@ -17,6 +17,47 @@ export async function getEnrolledClasses(studentId: string) {
   return result;
 }
 
+export async function getPublicClassrooms(studentId: string) {
+  // First get the student's enrolled classroom IDs
+  const enrolled = await db
+    .select({ classroomId: enrollments.classroomId })
+    .from(enrollments)
+    .where(eq(enrollments.studentId, studentId));
+  
+  const enrolledIds = enrolled.map(e => e.classroomId);
+
+  // Fetch all active and public classrooms
+  let q = db
+    .select()
+    .from(classrooms)
+    .where(and(eq(classrooms.isPublic, true), eq(classrooms.isActive, true)));
+
+  const allPublic = await q;
+
+  // Filter out the ones student is already enrolled in
+  return allPublic.filter(c => !enrolledIds.includes(c.id));
+}
+
+export async function getClassroomDetails(classroomId: string) {
+  const classroomArr = await db
+    .select()
+    .from(classrooms)
+    .where(eq(classrooms.id, classroomId))
+    .limit(1);
+
+  if (!classroomArr.length) return null;
+
+  const classroomQuizzes = await db
+    .select()
+    .from(quizzes)
+    .where(eq(quizzes.classroomId, classroomId));
+
+  return {
+    ...classroomArr[0],
+    quizzes: classroomQuizzes,
+  };
+}
+
 export async function getStudentQuizzes(studentId: string) {
   const enrolled = await db
     .select({ classroomId: enrollments.classroomId })

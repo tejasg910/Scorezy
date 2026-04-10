@@ -85,8 +85,8 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
     <div className="space-y-12">
       {/* Premium Header with Luxury Timer */}
       <div className="sticky top-16 z-40 bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5 -mt-6 -mx-6 p-6 px-10 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex-1 space-y-1">
-          <h2 className="text-2xl font-heading font-extrabold tracking-tight text-[#f0eeff] truncate max-w-[300px] md:max-w-none">
+        <div className="flex-1 min-w-0 space-y-1">
+          <h2 className="text-xl md:text-2xl font-heading font-extrabold tracking-tight text-[#f0eeff] break-words">
             {quiz.title}
           </h2>
           <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#71717a]">

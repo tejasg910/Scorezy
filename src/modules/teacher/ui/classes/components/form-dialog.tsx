@@ -67,6 +67,18 @@ export function AddClassRoomDialog({ canCreate = true }: { canCreate?: boolean }
             className="bg-white/5 border-white/10 text-[#f0eeff] h-12 focus:border-[#8b5cf6]/50 transition-all"
           />
 
+          <div className="flex items-center space-x-2 py-2">
+            <input 
+              type="checkbox" 
+              name="isPublic" 
+              id="isPublic" 
+              className="w-4 h-4 rounded border-white/10 bg-white/5 accent-[#8b5cf6]" 
+            />
+            <label htmlFor="isPublic" className="text-sm font-medium leading-none text-[#a1a1aa] peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+              Make this classroom public
+            </label>
+          </div>
+
           <Button type="submit" variant="luxury" disabled={pending} className="w-full  text-base">
             {pending ? "Creating..." : "Create Class Room"}
           </Button>

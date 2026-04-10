@@ -29,6 +29,13 @@
       "when": 1775717740249,
       "tag": "0003_classy_captain_marvel",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1775834455402,
+      "tag": "0004_odd_gauntlet",
+      "breakpoints": true
     }
   ]
 }

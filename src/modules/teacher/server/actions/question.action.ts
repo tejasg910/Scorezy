@@ -102,7 +102,7 @@ export async function saveQuestion(
           quizId,
           body,
           type,
-          marks,                    // ← Added
+          marks,
           orderIndex: nextOrder,
         })
         .returning({ id: questions.id });
@@ -152,7 +152,32 @@ export async function bulkCreateQuestions(
 
     const parsed = bulkQuestionSchema.parse({ questions: parsedData.questions });
 
-    let totalCreated = 0;
+    // ── 1. PRE-VALIDATION ──────────────────────────────────────────────────
+    // Validate everything BEFORE any database writes
+    for (const q of parsed.questions) {
+      const correctCount = q.options.filter((o) => o.isCorrect).length;
+      if (correctCount !== 1) {
+        return { 
+          error: `Question "${q.body}" must have exactly one correct option. No questions were added.` 
+        };
+      }
+      
+      if (q.type === "mcq" && q.options.length !== 4) {
+        return { error: `MCQ "${q.body}" must have exactly 4 options. No questions were added.` };
+      }
+      if (q.type === "true_false" && q.options.length !== 2) {
+        return { error: `True/False "${q.body}" must have exactly 2 options. No questions were added.` };
+      }
+    }
+
+    // ── 2. DEDUPLICATION & PREPARATION ──────────────────────────────────────
+    // Fetch existing question bodies to avoid duplicates
+    const existingQuestions = await db
+      .select({ body: questions.body })
+      .from(questions)
+      .where(eq(questions.quizId, quizId));
+    
+    const existingBodies = new Set(existingQuestions.map(q => q.body.toLowerCase().trim()));
 
     // Get next order index
     const [{ maxOrder = -1 }] = await db
@@ -161,14 +186,17 @@ export async function bulkCreateQuestions(
       .where(eq(questions.quizId, quizId));
 
     let currentOrder = (maxOrder ?? -1) + 1;
+    let totalCreated = 0;
+    let totalSkipped = 0;
 
-    // Run sequentially (No transaction)
+    // ── 3. EXECUTION ────────────────────────────────────────────────────────
     for (const q of parsed.questions) {
-      const correctCount = q.options.filter((o) => o.isCorrect).length;
-      if (correctCount !== 1) {
-        return { 
-          error: `Question "${q.body}" must have exactly one correct option` 
-        };
+      const normalizedBody = q.body.toLowerCase().trim();
+      
+      // Skip if exists
+      if (existingBodies.has(normalizedBody)) {
+        totalSkipped++;
+        continue;
       }
 
       // Create Question
