@@ -1,12 +1,13 @@
 // lib/entitlements.ts
 "use server"
+import { cache } from 'react'
 import { db } from '@/db'
 import { user, classrooms, quizzes } from '@/db/schema'
 import { eq, count, gte, and } from 'drizzle-orm'
 import { PLANS, type Plan } from '../../../../lib/plans'
 import { getSession } from '@/app/auth/lib/session'
 
-export async function getEntitlements() {
+export const getEntitlements = cache(async function getEntitlements() {
   const session = await getSession();
   if (!session) return null;
 
@@ -43,6 +44,7 @@ export async function getEntitlements() {
 
   return {
     plan: planKey,
+    maxStudentsPerClass: plan.maxStudentsPerClass,
     canCreateClassroom: classroomCount < plan.maxClassrooms,
     canCreateQuiz: quizCount < plan.maxQuizzesPerMonth,
     canExportReports: plan.canExportReports,
@@ -58,6 +60,6 @@ export async function getEntitlements() {
       },
     }
   }
-}
+})
 
 export type Entitlements = Awaited<ReturnType<typeof getEntitlements>>

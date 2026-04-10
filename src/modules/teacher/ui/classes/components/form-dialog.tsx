@@ -12,17 +12,34 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
+import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 import { ClassroomState } from "../../../types/classroom";
 
-export function AddClassRoomDialog() {
+export function AddClassRoomDialog({ canCreate = true }: { canCreate?: boolean }) {
   const { data } = useSession();
 
   const [state, action, pending] = useActionState<ClassroomState, FormData>(
   createClassroom,
   {}
 );
+
+  // ── Limit reached — show upgrade prompt instead of dialog ──
+  if (!canCreate) {
+    return (
+      <div className="flex flex-col items-end gap-2">
+        <Button variant="luxury" disabled className="opacity-50 cursor-not-allowed">
+          Add Class Room
+        </Button>
+        <Link
+          href="/teacher/billing"
+          className="text-[10px] font-bold uppercase tracking-widest text-[#8b5cf6] hover:text-[#b18aff] transition-colors"
+        >
+          ✦ Upgrade to Pro for unlimited classrooms →
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <Dialog>

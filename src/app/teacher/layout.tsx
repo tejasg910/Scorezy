@@ -2,6 +2,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "../auth/lib/session";
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
+import { SidebarUsageWidget } from "@/modules/billing/ui/components/sidebar-usage-widget";
 
 export default async function TeacherLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
@@ -11,7 +12,7 @@ export default async function TeacherLayout({ children }: { children: React.Reac
 
   return (
     <div className="flex min-h-screen bg-[#0a0a0f]">
-      <DashboardSidebar />
+      <DashboardSidebar usageWidget={<SidebarUsageWidget />} />
       <div className="flex-1 flex flex-col min-w-0">
         <div className="pl-20 md:pl-64 transition-all duration-300">
           {children}

@@ -6,6 +6,7 @@ import { quizzes, classrooms } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { getEntitlements } from "@/modules/billing/server/actions/entitlements.action";
 
 export type QuizState = {
   error?: string;
@@ -72,11 +73,19 @@ export async function saveQuiz(
     };
 
     if (quizId) {
-      // EDIT
+      // EDIT — always allowed regardless of plan
       await db.update(quizzes).set(quizData).where(eq(quizzes.id, quizId));
       revalidatePath(`/teacher/dashboard/${classroomId}/${quizId}`);
     } else {
-      // CREATE
+      // CREATE — check entitlements first
+      const entitlements = await getEntitlements();
+      if (!entitlements?.canCreateQuiz) {
+        return {
+          error:
+            "You have reached the quiz limit for this month on your Free plan. Upgrade to Pro for unlimited quizzes.",
+        };
+      }
+
       const [newQuiz] = await db
         .insert(quizzes)
         .values({ ...quizData, classroomId, id: crypto.randomUUID() })

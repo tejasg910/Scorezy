@@ -6,8 +6,7 @@ import { cn } from "@/lib/utils"
 import { 
   LayoutDashboard, 
   Users, 
-  CreditCard, 
-  Settings, 
+  CreditCard,
   ChevronLeft, 
   ChevronRight,
   GraduationCap
@@ -33,7 +32,12 @@ const sidebarItems = [
   },
 ]
 
-export function DashboardSidebar() {
+type DashboardSidebarProps = {
+  /** Server-rendered usage widget injected from the layout */
+  usageWidget?: React.ReactNode
+}
+
+export function DashboardSidebar({ usageWidget }: DashboardSidebarProps = {}) {
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
 
@@ -72,6 +76,13 @@ export function DashboardSidebar() {
             )
           })}
         </div>
+
+        {/* Usage widget slot — only visible when sidebar is expanded */}
+        {usageWidget && !isCollapsed && (
+          <div className="mb-2">
+            {usageWidget}
+          </div>
+        )}
 
         <div className="pt-4 border-t border-white/5">
           <Button

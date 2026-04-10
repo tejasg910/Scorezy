@@ -6,8 +6,9 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, XCircle, Clock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Pagination } from "@/components/pagination";
 
-export default async function StudentScoresRoot() {
+export default async function StudentScoresRoot({ page = 1 }: { page?: number }) {
   const session = await getSession();
   
   if (!session) return <SignInPage />;
@@ -17,6 +18,11 @@ export default async function StudentScoresRoot() {
 
   // Sorting in JS by startedAt desc
   const sortedAttempts = [...attempts].sort((a, b) => b.startedAt.getTime() - a.startedAt.getTime());
+
+  const limit = 10;
+  const totalPages = Math.ceil(sortedAttempts.length / limit);
+  const offset = (page - 1) * limit;
+  const paginatedAttempts = sortedAttempts.slice(offset, offset + limit);
 
   return (
     <div className="p-6 pt-32 lg:pt-20">
@@ -42,9 +48,10 @@ export default async function StudentScoresRoot() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedAttempts.map((attempt) => {
-              const isSubmitted = !!attempt.submittedAt;
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paginatedAttempts.map((attempt) => {
+                const isSubmitted = !!attempt.submittedAt;
               const passed = isSubmitted && attempt.score !== null && (attempt.passingMarks === null || attempt.score >= attempt.passingMarks);
               
               return (
@@ -105,6 +112,17 @@ export default async function StudentScoresRoot() {
                 </Card>
               );
             })}
+            </div>
+            
+            {totalPages > 1 && (
+              <div className="mt-8">
+                <Pagination
+                  currentPage={page}
+                  totalPages={totalPages}
+                  baseUrl="/student/scores"
+                />
+              </div>
+            )}
           </div>
         )}
 

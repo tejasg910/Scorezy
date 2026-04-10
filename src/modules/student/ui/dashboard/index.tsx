@@ -3,14 +3,20 @@ import SignInPage from "@/modules/auth/components/sign-in/page";
 import { getEnrolledClasses } from "../../server/actions/student.queries";
 import { EnrollClassDialog } from "./components/enroll-dialog";
 import { ClassList } from "./components/class-list";
+import { Pagination } from "@/components/pagination";
 
-export default async function StudentRoot() {
+export default async function StudentRoot({ page = 1 }: { page?: number }) {
   const session = await getSession();
   
   if (!session) return <SignInPage />;
   
   const studentData = session.user;
   const classes = await getEnrolledClasses(studentData.id);
+
+  const limit = 10;
+  const totalPages = Math.ceil(classes.length / limit);
+  const offset = (page - 1) * limit;
+  const paginatedClasses = classes.slice(offset, offset + limit);
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-[#f0eeff] p-6 pt-32">
@@ -34,7 +40,17 @@ export default async function StudentRoot() {
 
         {/* Content */}
         <div>
-          <ClassList data={classes} />
+          <ClassList data={paginatedClasses} />
+          
+          {totalPages > 1 && (
+            <div className="mt-8">
+              <Pagination
+                currentPage={page}
+                totalPages={totalPages}
+                baseUrl="/student/dashboard"
+              />
+            </div>
+          )}
         </div>
 
       </div>

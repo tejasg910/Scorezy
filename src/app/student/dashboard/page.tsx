@@ -1,9 +1,10 @@
 import StudentRoot from '@/modules/student/ui/dashboard'
 
-const page = () => {
+export default async function Page({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  const resolvedParams = await searchParams;
+  const page = typeof resolvedParams.page === "string" ? parseInt(resolvedParams.page) : 1;
   return (
-    <StudentRoot />
+    <StudentRoot page={page} />
   )
 }
 
-export default page

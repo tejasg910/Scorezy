@@ -6,6 +6,7 @@ export type Classroom = {
   inviteCode: string;
   isActive: boolean;
   createdAt: string | Date;
+  studentCount?: number;
 };
 
 export type ClassroomState = {

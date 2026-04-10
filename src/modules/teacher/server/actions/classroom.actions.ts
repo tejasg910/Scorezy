@@ -5,6 +5,7 @@ import { classrooms } from "@/db/schema";
 import { revalidatePath } from "next/cache";
 import { eq, and } from "drizzle-orm";
 import { ClassroomState } from "../../types/classroom";
+import { getEntitlements } from "@/modules/billing/server/actions/entitlements.action";
 
 export async function createClassroom(
   prevState: ClassroomState,
@@ -22,6 +23,16 @@ export async function createClassroom(
   }
 
   try {
+    // ── Entitlement guard ─────────────────────────────────────────────────────
+    const entitlements = await getEntitlements();
+    if (!entitlements?.canCreateClassroom) {
+      return {
+        error:
+          "You have reached the classroom limit on your Free plan. Upgrade to Pro for unlimited classrooms.",
+      };
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
     // Check if classroom with same name already exists for this teacher
     const existing = await db
       .select()

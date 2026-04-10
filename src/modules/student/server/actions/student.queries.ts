@@ -103,3 +103,61 @@ export async function getAttemptDetails(attemptId: string, studentId: string) {
     questions: questionsWithDetails
   };
 }
+
+
+
+export async function getAttemptDetailsForTeacher(attemptId: string) {
+  const attemptArr = await db
+    .select()
+    .from(attempts)
+    .where(eq(attempts.id, attemptId))
+    .limit(1);
+
+  if (!attemptArr.length) return null;
+  const attempt = attemptArr[0];
+
+  const quizArr = await db
+    .select()
+    .from(quizzes)
+    .where(eq(quizzes.id, attempt.quizId))
+    .limit(1);
+  const quiz = quizArr[0];
+
+  const quizQuestions = await db
+    .select()
+    .from(questions)
+    .where(eq(questions.quizId, attempt.quizId))
+    .orderBy(questions.orderIndex);
+
+  const quizOptions = await db
+    .select()
+    .from(options)
+    .innerJoin(questions, eq(options.questionId, questions.id))
+    .where(eq(questions.quizId, attempt.quizId));
+
+  const studentAnswers = await db
+    .select()
+    .from(answers)
+    .where(eq(answers.attemptId, attemptId));
+
+  const questionsWithDetails = quizQuestions.map((q) => {
+    const qOptions = quizOptions
+      .filter((o) => o.options.questionId === q.id)
+      .map((o) => o.options);
+    const userAnswer = studentAnswers.find((a) => a.questionId === q.id);
+
+    return {
+      ...q,
+      options: qOptions,
+      userAnswer: userAnswer?.optionId ?? null,
+      isCorrect: userAnswer?.isCorrect ?? false,
+    };
+  });
+
+  return {
+    ...attempt,
+    quizTitle: quiz?.title ?? "Unknown Quiz",
+    passingMarks: quiz?.passingMarks,
+    questions: questionsWithDetails,
+  };
+}

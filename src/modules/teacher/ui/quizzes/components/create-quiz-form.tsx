@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useState } from "react";
 import { saveQuiz } from "@/modules/teacher/server/actions/quiz.actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,22 +16,39 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useSession } from "@/lib/auth-client";
 import type { Quiz } from "@/modules/teacher/types/quiz";
+import Link from "next/link";
 
 type Props = {
   classroomId: string;
   editingQuiz?: Quiz | null;
   trigger?: React.ReactElement;
+  /** Pass false when the teacher has hit their monthly quiz limit */
+  canCreate?: boolean;
 };
 
-export function AddEditQuizDialog({ classroomId, editingQuiz, trigger }: Props) {
+export function AddEditQuizDialog({ classroomId, editingQuiz, trigger, canCreate = true }: Props) {
   const { data } = useSession();
   const [open, setOpen] = useState(false);
-
   const [state, action, pending] = useActionState(saveQuiz, {});
 
-  useEffect(() => {
-    if (editingQuiz) setOpen(true);
-  }, [editingQuiz]);
+  // NOTE: no auto-open effect — dialog is user-triggered only
+
+  // ── Limit reached — only block the "Create New Quiz" trigger (not edit) ──
+  if (!canCreate && !editingQuiz && !trigger) {
+    return (
+      <div className="flex flex-col items-end gap-2">
+        <Button variant="luxury" disabled className="opacity-50 cursor-not-allowed">
+          Create New Quiz
+        </Button>
+        <Link
+          href="/teacher/billing"
+          className="text-[10px] font-bold uppercase tracking-widest text-[#8b5cf6] hover:text-[#b18aff] transition-colors"
+        >
+          ✦ Upgrade to Pro for unlimited quizzes →
+        </Link>
+      </div>
+    );
+ }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
