@@ -52,17 +52,19 @@ export function QuizCard({ quiz }: { quiz: Quiz }) {
 
         {/* Actions */}
         <div className="flex flex-col sm:flex-row gap-2 pt-2">
-          <AddEditQuizDialog 
-            classroomId={quiz.classroomId} 
-            editingQuiz={quiz} 
-            trigger={
-              <Button variant="outline" size="sm" className="rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 font-heading font-bold uppercase tracking-widest text-[10px] h-9 px-4">
-                Edit Details
-              </Button>
-            } 
-          />
+          <div className="flex-1 w-full">
+            <AddEditQuizDialog 
+              classroomId={quiz.classroomId} 
+              editingQuiz={quiz} 
+              trigger={
+                <Button variant="outline" size="sm" className="w-full rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 font-heading font-bold uppercase tracking-widest text-[10px] h-9 px-4">
+                  Edit Details
+                </Button>
+              } 
+            />
+          </div>
          
-          <div className="flex-1">
+          <div className="flex-1 w-full">
             <QuestionEditButton id={quiz.classroomId} quizId={quiz.id} />
           </div>
         </div>

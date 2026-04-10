@@ -38,7 +38,7 @@ export function BulkAddQuestionsDialog({ quizId }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
         render={
-          <Button variant="outline" className="rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 h-14">
+          <Button variant="outline" className="w-full sm:w-auto rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] hover:bg-white/5 h-14">
             📦 Bulk Add Questions (JSON)
           </Button>
         }
