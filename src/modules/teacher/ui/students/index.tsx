@@ -46,7 +46,7 @@ export default async function StudentsInClassroom({ classroomId, page = 1 }: Pro
             </p>
           </div>
 
-          <div className="flex items-center gap-2 px-4 py-2 border border-white/10 bg-white/5">
+          <div className="flex items-center justify-center md:justify-start gap-2 px-4 py-2 border border-white/10 bg-white/5 w-full md:w-auto">
             <Users className="w-4 h-4 text-[#8b5cf6]" />
             <span className="text-sm font-bold text-[#f0eeff] tabular-nums">
               {students.length}

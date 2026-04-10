@@ -21,7 +21,7 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
       <div className="max-w-5xl mx-auto space-y-12">
         
         {/* Header Summary (Premium Report Design) */}
-        <div className="bg-[#15151e] border border-white/5 rounded-none p-10 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative overflow-hidden">
+        <div className="bg-[#15151e] border border-white/5 rounded-none p-6 md:p-10 shadow-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#8b5cf6]/5 rounded-full blur-[100px] -mr-32 -mt-32" />
           
           <div className="relative z-10 flex-1 space-y-4">
@@ -29,16 +29,16 @@ export function AttemptDetailsUI({ attempt }: { attempt: any }) {
                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#8b5cf6]">Final Performance Archive</span>
                <div className="h-px flex-1 bg-white/5" />
              </div>
-             <h1 className="text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-[#f0eeff] leading-none">
+             <h1 className="text-4xl md:text-5xl font-heading font-extrabold tracking-tight text-[#f0eeff] leading-none [text-wrap:balance]">
                {attempt.quizTitle}
              </h1>
-             <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-[#71717a]">
-                <Clock className="w-3.5 h-3.5" />
-                Vault Locked: {attempt.submittedAt ? attempt.submittedAt.toLocaleString() : "Not submitted"}
+             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[10px] font-bold uppercase tracking-widest text-[#71717a]">
+                <Clock className="w-3.5 h-3.5 shrink-0" />
+                <span>Vault Locked: {attempt.submittedAt ? attempt.submittedAt.toLocaleString() : "Not submitted"}</span>
              </div>
           </div>
 
-          <div className="relative z-10 flex flex-col items-center gap-4 p-8 bg-white/5 border border-white/5 min-w-[200px]">
+          <div className="relative z-10 flex flex-col items-center gap-4 p-6 md:p-8 bg-white/5 border border-white/5 w-full md:w-auto md:min-w-[200px]">
              <div className="text-center">
                <p className="text-[10px] text-[#71717a] font-bold uppercase tracking-[0.2em] mb-2">Efficiency Rating</p>
                <p className="text-5xl font-heading font-extrabold text-[#f0eeff]">

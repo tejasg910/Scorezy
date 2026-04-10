@@ -57,8 +57,8 @@ export default async function StudentDetail({ classroomId, studentId, studentNam
           </div>
 
           {/* Aggregate stats */}
-          <div className="flex gap-3">
-            <div className="px-4 py-3 border border-white/10 bg-[#15151e] text-center">
+          <div className="flex flex-wrap w-full md:w-auto gap-3 mt-4 md:mt-0">
+            <div className="flex-1 md:flex-none px-4 py-3 border border-white/10 bg-[#15151e] text-center">
               <p className="text-2xl font-heading font-extrabold text-[#f0eeff] tabular-nums">
                 {submitted.length}
               </p>
@@ -66,7 +66,7 @@ export default async function StudentDetail({ classroomId, studentId, studentNam
                 Submitted
               </p>
             </div>
-            <div className="px-4 py-3 border border-[#8b5cf6]/30 bg-[#8b5cf6]/5 text-center">
+            <div className="flex-1 md:flex-none px-4 py-3 border border-[#8b5cf6]/30 bg-[#8b5cf6]/5 text-center">
               <p className="text-2xl font-heading font-extrabold text-[#b18aff] tabular-nums">
                 {totalMax > 0 ? `${Math.round((totalScore / totalMax) * 100)}%` : "—"}
               </p>
