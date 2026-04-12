@@ -2,7 +2,7 @@
 
 import { db } from "@/db";
 import { enrollments, user, attempts, quizzes, classrooms } from "@/db/schema";
-import { eq, count, and } from "drizzle-orm";
+import { eq, count, and, inArray } from "drizzle-orm";
 
 /** All students enrolled in a classroom with their attempt count (paginated) */
 export async function getClassroomStudents(classroomId: string, page: number = 1, limit: number = 10) {
@@ -26,7 +26,13 @@ export async function getClassroomStudents(classroomId: string, page: number = 1
     })
     .from(enrollments)
     .innerJoin(user, eq(enrollments.studentId, user.id))
-    .leftJoin(attempts, eq(attempts.studentId, user.id))
+    .leftJoin(attempts, and(
+      eq(attempts.studentId, user.id),
+      inArray(
+        attempts.quizId,
+        db.select({ id: quizzes.id }).from(quizzes).where(eq(quizzes.classroomId, classroomId))
+      )
+    ))
     .where(eq(enrollments.classroomId, classroomId))
     .groupBy(
       user.id,
