@@ -82,11 +82,11 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
   const currentQuestion = quiz.questions[store.currentQuestionIndex];
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 md:space-y-12">
       {/* Premium Header with Luxury Timer */}
-      <div className="sticky top-16 z-40 bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5 -mt-6 -mx-6 p-6 px-10 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="sticky top-16 z-40 bg-[#0a0a0f]/80 backdrop-blur-md border-b border-white/5 -mt-6 -mx-6 p-4 md:p-6 md:px-10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
         <div className="flex-1 min-w-0 space-y-1">
-          <h2 className="text-xl md:text-2xl font-heading font-extrabold tracking-tight text-[#f0eeff] break-words">
+          <h2 className="text-lg md:text-2xl font-heading font-extrabold tracking-tight text-[#f0eeff] break-words">
             {quiz.title}
           </h2>
           <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] text-[#71717a]">
@@ -123,7 +123,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
         </div>
       </div>
 
-      <div className="pb-20 max-w-4xl mx-auto space-y-10">
+      <div className="pb-20 max-w-4xl mx-auto space-y-6 md:space-y-10">
         {/* Navigation Indicator Blocks (Squared) */}
         <div className="flex flex-wrap gap-2.5 justify-center">
             {quiz.questions.map((_: any, idx: number) => (
@@ -146,14 +146,14 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
 
         {currentQuestion && (
           <Card key={currentQuestion.id} className="border-white/5 bg-[#15151e] rounded-none overflow-hidden shadow-2xl">
-            <div className="bg-white/5 px-8 py-4 border-b border-white/5 flex justify-between items-center">
+            <div className="bg-white/5 px-6 py-3 md:px-8 md:py-4 border-b border-white/5 flex justify-between items-center">
                <span className="text-[10px] font-bold text-[#71717a] uppercase tracking-[0.2em]">Section Assessment</span>
                <div className="px-3 py-1 bg-[#8b5cf6]/10 border border-[#8b5cf6]/20 text-[#b18aff] text-[10px] font-bold uppercase tracking-widest">
                  {currentQuestion.marks} Marks
                </div>
             </div>
-            <CardContent className="pt-12 px-10 pb-12">
-              <h3 className="text-2xl md:text-3xl font-heading font-bold text-[#f0eeff] leading-tight mb-12">
+            <CardContent className="pt-6 px-6 pb-6 md:pt-12 md:px-10 md:pb-12">
+              <h3 className="text-xl md:text-3xl font-heading font-bold text-[#f0eeff] leading-tight mb-6 md:mb-12">
                 {currentQuestion.body}
               </h3>
               
@@ -161,13 +161,13 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                 value={store.answers[currentQuestion.id] || ""} 
                 onValueChange={(val) => store.setAnswer(currentQuestion.id, val)}
                 disabled={store.isSubmitting}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4"
               >
                 {currentQuestion.options.map((opt: any) => (
                   <div 
                     key={opt.id} 
                     className={cn(
-                      "flex items-center space-x-4 p-6 rounded-none border-2 transition-all duration-300 cursor-pointer group",
+                      "flex items-center space-x-4 p-4 md:p-6 rounded-none border-2 transition-all duration-300 cursor-pointer group",
                       store.answers[currentQuestion.id] === opt.id 
                         ? "border-[#8b5cf6] bg-[#8b5cf6]/10 shadow-[0_0_20px_rgba(139,92,246,0.1)]" 
                         : "border-white/5 hover:border-white/20 hover:bg-white/5"
@@ -185,7 +185,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                         <div className="w-2 h-2 bg-white" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)" }} />
                       )}
                     </div>
-                    <Label htmlFor={`opt-${opt.id}`} className="flex-1 cursor-pointer text-lg font-medium text-[#f0eeff] transition-colors group-hover:text-white">
+                    <Label htmlFor={`opt-${opt.id}`} className="flex-1 cursor-pointer text-base md:text-lg font-medium text-[#f0eeff] transition-colors group-hover:text-white">
                       {opt.text}
                     </Label>
                   </div>
@@ -196,13 +196,13 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
         )}
 
         {/* Navigation Control Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-4">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 md:gap-6 pt-4">
             <Button
               variant="outline"
               size="lg"
               onClick={() => store.setCurrentQuestionIndex(Math.max(0, store.currentQuestionIndex - 1))}
               disabled={store.currentQuestionIndex === 0 || store.isSubmitting}
-              className="w-full sm:w-48 h-14 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] transition-all font-heading font-bold tracking-widest uppercase"
+              className="w-full sm:w-48 h-12 md:h-14 rounded-none border-white/10 text-[#a1a1aa] hover:text-[#f0eeff] transition-all font-heading font-bold tracking-widest uppercase"
             >
               Previous
             </Button>
@@ -218,7 +218,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                   size="lg"
                   onClick={() => store.setCurrentQuestionIndex(store.currentQuestionIndex + 1)}
                   disabled={store.isSubmitting}
-                  className="w-full h-14"
+                  className="w-full h-12 md:h-14"
                 >
                   Next Question
                 </Button>
@@ -230,7 +230,7 @@ export function TestClient({ attemptId, initialTimeRemaining, quiz }: TestClient
                     if (confirm("Are you sure you want to finish and submit the test?")) handleSubmit();
                   }}
                   disabled={store.isSubmitting}
-                  className="w-full h-14 bg-green-600 hover:bg-green-500"
+                  className="w-full h-12 md:h-14 bg-green-600 hover:bg-green-500"
                 >
                   Finish Test
                 </Button>
